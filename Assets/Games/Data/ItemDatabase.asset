@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ba06d4fe07ec4f4b8dea600ed303f32, type: 3}
+  m_Name: ItemDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::ItemDatabase
+  items:
+  - itemName: Pickaxe
+    basePrice: 20
+    basePower: 1
+    nbrAmelioMax: 5
+    icon: {fileID: -3044009071465434143, guid: ed4e016c8eddc57499edc5f5217b49cc, type: 3}
+    upgradeType: 0
