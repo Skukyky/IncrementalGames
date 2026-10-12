@@ -50,7 +50,7 @@ public class UpgradeItemUI : MonoBehaviour, IUpgradeUI
                     gameManagerInstance.ApplyUpgradePickAxe(currentItemData.itemName, ChangePower());
                     break;
                 case EnumType.TypeOfUpGrade.Automatic:
-
+                    gameManagerInstance.ApplyUpgradeAutomatic(currentItemData.itemName, ChangePower());
                     break;
             }
         }
@@ -73,9 +73,8 @@ public class UpgradeItemUI : MonoBehaviour, IUpgradeUI
         RefreshPriceText(currentPrice.ToString());
     }
 
-    private int ChangePower()
+    private double ChangePower()
     {
-        int Power = currentItemData.basePower * Level;
-        return Power;
+        return currentItemData.basePower * Level;;
     }
 }

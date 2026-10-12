@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 039f2e5b7b433b74ba0c45c83691eb27
+guid: a7a5cc69482e74f42b2e5306e81c3453
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1485385288693868646
-    second: processed_image_3_0
+      213: -8161948943612211361
+    second: ThomasFarmIdle_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -128,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: processed_image_3_0
+      name: ThomasFarmIdle_0
       rect:
         serializedVersion: 2
-        x: 29
-        y: 0
-        width: 529
-        height: 814
+        x: 72
+        y: 2
+        width: 256
+        height: 396
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,8 +143,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6686037dc062d9410800000000000000
-      internalID: 1485385288693868646
+      spriteID: f5f8e1dfdaeeabe80800000000000000
+      internalID: -8161948943612211361
       vertices: []
       indices: 
       edges: []
@@ -163,7 +163,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      processed_image_3_0: 1485385288693868646
+      ThomasFarmIdle_0: -8161948943612211361
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

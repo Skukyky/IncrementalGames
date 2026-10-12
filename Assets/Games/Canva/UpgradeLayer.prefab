@@ -194,7 +194,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5473832752984683549}
   - {fileID: 5121087477358784427}
@@ -413,7 +413,7 @@ MonoBehaviour:
     m_Top: 50
     m_Bottom: 50
   m_ChildAlignment: 4
-  m_Spacing: 70
+  m_Spacing: 85
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -901,3 +901,4 @@ MonoBehaviour:
   itemDatabase: {fileID: 11400000, guid: 91170a99fd1124e4995629f8746e1cf0, type: 2}
   scrollContent: {fileID: 3190041315737853182}
   prefabUpgrade: {fileID: 1146927995948214048, guid: 5616250e85fd93b45a107e09580c9e63, type: 3}
+  gameManager: {fileID: 0}

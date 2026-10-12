@@ -29,7 +29,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 501733005713170632}
   - {fileID: 5075900992147962256}
@@ -164,14 +164,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.3164873, b: 0, a: 0.392}
+  m_Color: {r: 0.6745098, g: 0.6392157, b: 0.49803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -226,6 +226,18 @@ PrefabInstance:
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5857732947890553836, guid: 6d1ef125eabdaf54894b22ccd27aa6b8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.4337208
+      objectReference: {fileID: 0}
+    - target: {fileID: 5857732947890553836, guid: 6d1ef125eabdaf54894b22ccd27aa6b8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.4337208
+      objectReference: {fileID: 0}
+    - target: {fileID: 5857732947890553836, guid: 6d1ef125eabdaf54894b22ccd27aa6b8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.4337208
+      objectReference: {fileID: 0}
+    - target: {fileID: 5857732947890553836, guid: 6d1ef125eabdaf54894b22ccd27aa6b8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -272,6 +284,10 @@ PrefabInstance:
     - target: {fileID: 5857732947890553836, guid: 6d1ef125eabdaf54894b22ccd27aa6b8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5857732947890553836, guid: 6d1ef125eabdaf54894b22ccd27aa6b8, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9099617691273531051, guid: 6d1ef125eabdaf54894b22ccd27aa6b8, type: 3}
       propertyPath: m_text
@@ -386,6 +402,10 @@ PrefabInstance:
     - target: {fileID: 3911447076770960641, guid: e08a60c1de0effd4cb3e018a5d0a8f57, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911447076770960641, guid: e08a60c1de0effd4cb3e018a5d0a8f57, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

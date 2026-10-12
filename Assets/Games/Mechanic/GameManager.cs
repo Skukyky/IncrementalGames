@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,7 +11,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float slimeDuration = 0.6f;
     [SerializeField] private float slimeIntensity = 0.35f; // how strong the stretch/squash is
     [SerializeField] private MoneyConvertAndSave goldConvert;
+    [SerializeField] private Image WorkerA;
+    [SerializeField] private Image WorkerB;
+    [SerializeField] private Image WorkerC;
     
+    delegate void MultiDelegate();
+    MultiDelegate _spriteDelegate;
     
     public int coins; 
     private Coroutine _slimeCoroutine;
@@ -19,6 +25,8 @@ public class GameManager : MonoBehaviour
     Dictionary<string, double> _upgradeClick = new Dictionary<string, double>();
     Dictionary<string, double> _upgradeAutomatic = new Dictionary<string, double>();
     private int _damagePickaxe = 1;
+    private int _damageAutomatic = 1;
+    private bool _firstLaunchDelegate = true;
     
     private void Start()
     {
@@ -85,6 +93,40 @@ public class GameManager : MonoBehaviour
             newPower += pair.Value;
         }
         _damagePickaxe = (int)newPower;
+    }
+
+    public void ApplyUpgradeAutomatic(string upgradeID, double upgradePower)
+    {
+        if (_upgradeAutomatic.ContainsKey(upgradeID))
+        {
+            _upgradeAutomatic[upgradeID] = upgradePower;
+        }
+        else
+        {
+            _upgradeAutomatic.Add(upgradeID, upgradePower);
+            if (_firstLaunchDelegate)
+            {
+                _firstLaunchDelegate = false;
+                StartCoroutine(AutomaticClick());
+            }
+        }
+        double newPower = 0;
+        foreach (var pair in _upgradeAutomatic)
+        {
+            newPower += pair.Value;
+        }
+        _damageAutomatic = (int)newPower;
+    }
+    
+    private System.Collections.IEnumerator AutomaticClick()
+    {
+        print("Automatic Click");
+        while (true)
+        {
+            coins += _damageAutomatic;
+            CalculateNewMoney();
+            yield return new WaitForSeconds(1f); // Adjust the delay as needed
+        }
     }
     
 }

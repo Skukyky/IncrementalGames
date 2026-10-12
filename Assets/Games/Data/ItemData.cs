@@ -6,7 +6,7 @@ public class ItemData
 {
     public string itemName;
     public int basePrice;
-    public int basePower;
+    public double basePower;
     public int nbrAmelioMax;
     public Sprite icon;
     public EnumType.TypeOfUpGrade upgradeType;

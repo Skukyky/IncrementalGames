@@ -16,6 +16,12 @@ MonoBehaviour:
   - itemName: Pickaxe
     basePrice: 20
     basePower: 1
-    nbrAmelioMax: 5
+    nbrAmelioMax: 20
     icon: {fileID: -3044009071465434143, guid: ed4e016c8eddc57499edc5f5217b49cc, type: 3}
     upgradeType: 0
+  - itemName: Worker Thomas
+    basePrice: 70
+    basePower: 12
+    nbrAmelioMax: 20
+    icon: {fileID: 21300000, guid: c23f124bb89c91c43a332289d563ae13, type: 3}
+    upgradeType: 1
