@@ -13,15 +13,12 @@ MonoBehaviour:
   m_Name: ItemDatabase
   m_EditorClassIdentifier: Assembly-CSharp::ItemDatabase
   items:
-  - itemName: Pickaxe
-    basePrice: 20
-    basePower: 1
-    nbrAmelioMax: 20
-    icon: {fileID: -3044009071465434143, guid: ed4e016c8eddc57499edc5f5217b49cc, type: 3}
-    upgradeType: 0
-  - itemName: Worker Thomas
-    basePrice: 70
-    basePower: 12
-    nbrAmelioMax: 20
-    icon: {fileID: 21300000, guid: c23f124bb89c91c43a332289d563ae13, type: 3}
-    upgradeType: 1
+  - UpgradeName: Worker 1
+    basePriceUpgrade: 1
+    nbrAmelioMaxUpgrade: 25
+    baseDamageUpgrade: 2
+    iconUpgrade: {fileID: 1023558283261890152, guid: f618b16792043d24a95ce9ee30767737, type: 3}
+    automaticWorkerPrefab: {fileID: 6016740213501217867, guid: 68bb8fcb4da02eb4592c6bf4e0bd7e71, type: 3}
+    automaticWorkerSpawnPosition: {x: 115, y: 8}
+    automaticWorkerFlipX: 0
+    automaticWorkerCharacterData: {fileID: 11400000, guid: 4067f5a4629ba1c42985c8effe841a8b, type: 2}

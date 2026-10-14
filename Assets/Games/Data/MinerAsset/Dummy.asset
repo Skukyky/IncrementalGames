@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08909529f8c8464fa7e69ebd735787ee, type: 3}
+  m_Name: Dummy
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterData
+  CharacterName: Dummy
+  FireRate: 1
+  CritRate: 0
+  CritDamage: 1.5
+  icon: {fileID: 1023558283261890152, guid: f618b16792043d24a95ce9ee30767737, type: 3}
+  sprite1: {fileID: -2593720543164649129, guid: 792fd70e02914e34db268d5c67e74af4, type: 3}
+  sprite2: {fileID: -7080593530818178808, guid: 4f54c75a5458544419d49a890a11c76e, type: 3}

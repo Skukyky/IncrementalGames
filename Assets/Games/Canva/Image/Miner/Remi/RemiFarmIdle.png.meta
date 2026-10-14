@@ -134,37 +134,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RemiFarmIdle_0
-      rect:
-        serializedVersion: 2
-        x: 65
-        y: 299
-        width: 17
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 18a0647e8ad392710800000000000000
-      internalID: 1668932932561406593
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: RemiFarmIdle_1
       rect:
         serializedVersion: 2
-        x: 82
+        x: 0
         y: 0
-        width: 239
-        height: 396
+        width: 400
+        height: 400
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -177,33 +155,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: RemiFarmIdle_2
-      rect:
-        serializedVersion: 2
-        x: 65
-        y: 279
-        width: 8
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bb5aceaf11d62d330800000000000000
-      internalID: 3734166965035247035
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 12c5b5c8e69489147bab0dba8224a417
     internalID: 0
     vertices: []
     indices: 

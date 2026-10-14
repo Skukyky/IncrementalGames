@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,12 +11,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float slimeDuration = 0.6f;
     [SerializeField] private float slimeIntensity = 0.35f; // how strong the stretch/squash is
     [SerializeField] private MoneyConvertAndSave goldConvert;
-    [SerializeField] private Image WorkerA;
-    [SerializeField] private Image WorkerB;
-    [SerializeField] private Image WorkerC;
-    
-    delegate void MultiDelegate();
-    MultiDelegate _spriteDelegate;
+    [SerializeField] private Transform uiCanvasTransform;
+    // Expose UI parent for other classes to instantiate UI elements under
+    public Transform UiCanvasTransform => uiCanvasTransform;
     
     public int coins; 
     private Coroutine _slimeCoroutine;
@@ -28,6 +25,12 @@ public class GameManager : MonoBehaviour
     private int _damageAutomatic = 1;
     private bool _firstLaunchDelegate = true;
     
+    [SerializeField] private ItemDatabase itemDatabase;
+
+    // Map to keep spawned automatic worker instances keyed by item name
+    private Dictionary<string, AnimatedSprite> _spawnedWorkerMap = new Dictionary<string, AnimatedSprite>();
+    public IReadOnlyDictionary<string, AnimatedSprite> SpawnedWorkerMap => _spawnedWorkerMap;
+
     private void Start()
     {
         _originalScale = slimeButton.localScale;
@@ -93,8 +96,10 @@ public class GameManager : MonoBehaviour
             newPower += pair.Value;
         }
         _damagePickaxe = (int)newPower;
+        print("New Pickaxe Damage: " + _damagePickaxe);
     }
 
+    /*
     public void ApplyUpgradeAutomatic(string upgradeID, double upgradePower)
     {
         if (_upgradeAutomatic.ContainsKey(upgradeID))
@@ -118,6 +123,7 @@ public class GameManager : MonoBehaviour
         _damageAutomatic = (int)newPower;
     }
     
+    
     private System.Collections.IEnumerator AutomaticClick()
     {
         print("Automatic Click");
@@ -128,5 +134,78 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(1f); // Adjust the delay as needed
         }
     }
-    
+    */
+
+    // Spawn a single automatic worker prefab for the given item and store the instance
+    public void SpawnAutomaticWorker(ItemData item)
+    {
+        if (item == null)
+        {
+            Debug.LogWarning("SpawnAutomaticWorker called with null item");
+            return;
+        }
+        
+
+        if (item.automaticWorkerPrefab == null)
+        {
+            Debug.LogWarning($"No automaticWorkerPrefab set for item {item.UpgradeName}");
+            return;
+        }
+
+        if (uiCanvasTransform == null)
+        {
+            Debug.LogWarning("UI Canvas Transform not assigned in GameManager. Cannot set parent for worker prefab.");
+            return;
+        }
+
+        if (_spawnedWorkerMap.ContainsKey(item.UpgradeName))
+        {
+            Debug.Log($"Worker for {item.UpgradeName} already spawned");
+            return;
+        }
+
+        GameObject instance = GameObject.Instantiate(item.automaticWorkerPrefab, uiCanvasTransform);
+        RectTransform rt = instance.GetComponent<RectTransform>();
+        if (rt != null)
+        {
+            rt.anchoredPosition = item.automaticWorkerSpawnPosition;
+        }
+        
+        AnimatedSprite upgradeUI = instance.GetComponent<AnimatedSprite>();
+        if (upgradeUI != null)
+        {
+            upgradeUI.Initialize(item,this);
+            print("Passed");
+        }
+        else
+        {
+            print("Not Passed");;
+        }
+
+        // Apply horizontal flip if requested in data — flip Image component only when available
+        if (item.automaticWorkerFlipX)
+        {
+            Image img = instance.GetComponentInChildren<Image>();
+            if (img != null)
+            {
+                Vector3 lsImg = img.rectTransform.localScale;
+                lsImg.x *= -1f;
+                img.rectTransform.localScale = lsImg;
+            }
+            else
+            {
+                // fallback: flip root transform if no Image found
+                Vector3 ls = instance.transform.localScale;
+                ls.x *= -1f;
+                instance.transform.localScale = ls;
+            }
+        }
+
+        instance.SetActive(true);
+        AnimatedSprite animatedSprite = instance.GetComponentInChildren<AnimatedSprite>();
+        _spawnedWorkerMap.Add(item.UpgradeName, animatedSprite);
+
+        Debug.Log($"Spawned automatic worker for {item.UpgradeName}");
+    }
+
 }

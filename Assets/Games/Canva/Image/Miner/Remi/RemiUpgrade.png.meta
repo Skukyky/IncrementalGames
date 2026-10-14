@@ -131,37 +131,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RemiUpgrade_0
+      name: RemiUpgrade
       rect:
         serializedVersion: 2
-        x: 23
-        y: 105
-        width: 8
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d7baa1787f97c92b0800000000000000
-      internalID: -5576448134560961667
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RemiUpgrade_1
-      rect:
-        serializedVersion: 2
-        x: 30
+        x: 0
         y: 0
-        width: 95
+        width: 150
         height: 150
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,7 +156,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ebf1b32a9eb07b24da47d348da7ee56d
     internalID: 0
     vertices: []
     indices: 
@@ -188,8 +166,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      RemiUpgrade: 3756579273184745988
       RemiUpgrade_0: -5576448134560961667
-      RemiUpgrade_1: 3756579273184745988
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

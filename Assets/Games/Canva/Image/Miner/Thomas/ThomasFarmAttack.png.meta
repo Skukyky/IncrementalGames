@@ -137,64 +137,20 @@ TextureImporter:
       name: ThomasFarmAttack_0
       rect:
         serializedVersion: 2
-        x: 72
-        y: 9
-        width: 304
-        height: 391
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 80157a4c2bdacbd90800000000000000
-      internalID: -7080593530818178808
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ThomasFarmAttack_1
-      rect:
-        serializedVersion: 2
-        x: 370
-        y: 24
-        width: 7
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1ba5a08e3a3356bc0800000000000000
-      internalID: -3790566732296725839
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ThomasFarmAttack_2
-      rect:
-        serializedVersion: 2
-        x: 76
+        x: 0
         y: 0
-        width: 14
-        height: 8
+        width: 400
+        height: 400
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e66c68d4860b66e40800000000000000
-      internalID: 5649396744606631534
+      spriteID: 9a6991694501a954fa46fe259af46305
+      internalID: -7080593530818178808
       vertices: []
       indices: 
       edges: []
@@ -203,7 +159,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 1207e1a8b3267c14bbe5e92b3c2b6b81
     internalID: 0
     vertices: []
     indices: 
@@ -211,7 +167,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceOnImport
+        value: False
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       ThomasFarmAttack_0: -7080593530818178808
       ThomasFarmAttack_1: -3790566732296725839

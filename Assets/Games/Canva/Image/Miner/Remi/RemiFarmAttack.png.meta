@@ -134,12 +134,12 @@ TextureImporter:
       name: RemiFarmAttack_0
       rect:
         serializedVersion: 2
-        x: 35
-        y: 7
-        width: 324
-        height: 393
+        x: 0
+        y: 0
+        width: 400
+        height: 400
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -152,33 +152,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: RemiFarmAttack_1
-      rect:
-        serializedVersion: 2
-        x: 100
-        y: 0
-        width: 9
-        height: 5
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 03ac7ed97f9291220800000000000000
-      internalID: 2457041215190190640
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 17e9f0dff46ff374bb41f8a5d6b99988
     internalID: 0
     vertices: []
     indices: 

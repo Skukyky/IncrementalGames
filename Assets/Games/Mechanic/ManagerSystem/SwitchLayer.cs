@@ -11,12 +11,6 @@ public class SwitchLayer : MonoBehaviour
         ShopCanvas.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnClickUpgrade()
     {
         UpgradeCanvas.enabled = true;
