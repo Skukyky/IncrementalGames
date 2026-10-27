@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08909529f8c8464fa7e69ebd735787ee, type: 3}
   m_Name: Thomas
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
-  CharacterName: None
-  FireRate: 1
-  CritRate: 0
+  CharacterName: Thomas
+  FireRate: 1.5
+  CritRate: 25
   CritDamage: 1.5
-  icon: {fileID: 0}
-  sprite1: {fileID: 0}
-  sprite2: {fileID: 0}
+  icon: {fileID: 21300000, guid: c23f124bb89c91c43a332289d563ae13, type: 3}
+  sprite1: {fileID: -8161948943612211361, guid: a7a5cc69482e74f42b2e5306e81c3453, type: 3}
+  sprite2: {fileID: -7080593530818178808, guid: 4f54c75a5458544419d49a890a11c76e, type: 3}

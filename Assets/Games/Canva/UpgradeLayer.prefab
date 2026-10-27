@@ -193,7 +193,7 @@ RectTransform:
   m_GameObject: {fileID: 1146927995948214048}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5473832752984683549}
@@ -723,7 +723,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9191473269357237759}
   m_HandleRect: {fileID: 3063715574565857347}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -849,8 +849,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5822022161499851413}
   m_HandleRect: {fileID: 5574827382036929838}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -995,6 +995,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3911447076770960641, guid: 5616250e85fd93b45a107e09580c9e63, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5172038662242916184, guid: 5616250e85fd93b45a107e09580c9e63, type: 3}
       propertyPath: currentPrice
       value: 20
@@ -1012,6 +1016,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -3044009071465434143, guid: ed4e016c8eddc57499edc5f5217b49cc, type: 3}
     - target: {fileID: 5172038662242916184, guid: 5616250e85fd93b45a107e09580c9e63, type: 3}
+      propertyPath: gestionSpawnUpgradeInstance
+      value: 
+      objectReference: {fileID: 2680840478374604939}
+    - target: {fileID: 5172038662242916184, guid: 5616250e85fd93b45a107e09580c9e63, type: 3}
       propertyPath: currentItemData.basePriceUpgrade
       value: 20
       objectReference: {fileID: 0}
@@ -1021,7 +1029,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5340539839272942836, guid: 5616250e85fd93b45a107e09580c9e63, type: 3}
       propertyPath: m_text
-      value: PickAxe
+      value: Pickaxe
       objectReference: {fileID: 0}
     - target: {fileID: 5920025263325304367, guid: 5616250e85fd93b45a107e09580c9e63, type: 3}
       propertyPath: m_Sprite
@@ -1029,7 +1037,7 @@ PrefabInstance:
       objectReference: {fileID: -3044009071465434143, guid: ed4e016c8eddc57499edc5f5217b49cc, type: 3}
     - target: {fileID: 9095232617567774193, guid: 5616250e85fd93b45a107e09580c9e63, type: 3}
       propertyPath: m_text
-      value: Pickabou
+      value: Price
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

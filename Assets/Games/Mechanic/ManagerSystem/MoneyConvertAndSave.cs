@@ -3,38 +3,86 @@ using UnityEngine;
 
 public class MoneyConvertAndSave : MonoBehaviour
 {
-    private int factor = 0;
-    private string unit;
+    public enum MoneyScale
+    {
+        None,
+        K,
+        M,
+        Md
+    }
+
+    private static MoneyScale GetScale(double money)
+    {
+        double absoluteValue = Math.Abs(money);
+        if (absoluteValue >= 1_000_000_000d)
+        {
+            return MoneyScale.Md;
+        }
+        
+        if (absoluteValue >= 1_000_000d)
+        {
+            return MoneyScale.M;
+        }
+
+        if (absoluteValue >= 1_000d)
+        {
+            return MoneyScale.K;
+        }
+
+        return MoneyScale.None;
+    }
+
+    private static double GetScaledValue(double money, MoneyScale scale)
+    {
+        switch (scale)
+        {
+            case MoneyScale.K:
+                return money / 1_000d;
+            case MoneyScale.M:
+                return money / 1_000_000d;
+            case MoneyScale.Md:
+                return money / 1_000_000_000d;
+            default:
+                return money;
+        }
+    }
+
+    private static string FormatValue(double value)
+    {
+        if (value >= 100d)
+        {
+            return ((long)Math.Floor(value)).ToString();
+        }
+
+        if (value >= 10d)
+        {
+            double truncated = Math.Floor(value * 10d) / 10d;
+            return truncated.ToString("0.0").Replace('.', ',');
+        }
+
+        double tinyTruncated = Math.Floor(value * 100d) / 100d;
+        return tinyTruncated.ToString("0.00").Replace('.', ',').TrimEnd('0').TrimEnd(',');
+    }
 
     public string ConvertMoneyLogic(double money)
     {
-        if (money / Math.Pow(10, factor * 3) >= 1000)
+        if (double.IsNaN(money) || double.IsInfinity(money))
         {
-            factor++;
+            return "0";
         }
-        else if (money / Math.Pow(10, factor * 3) < 1 && factor > 0)
+
+        bool isNegative = money < 0d;
+        double absoluteValue = Math.Abs(money);
+        MoneyScale scale = GetScale(absoluteValue);
+        double scaledValue = GetScaledValue(absoluteValue, scale);
+        string suffix = scale == MoneyScale.K ? "K" : scale == MoneyScale.M ? "M" : scale == MoneyScale.Md ? "Md" : string.Empty;
+        string valueText = FormatValue(scaledValue);
+
+        if (isNegative)
         {
-            factor--;
+            valueText = "-" + valueText;
         }
-        switch (factor)
-        {
-            case 0:
-                unit = "";
-                break;
-            case 1:
-                unit = " K";
-                break;
-            case 2:
-                unit = " M";
-                break;
-        }
-        double value = money / Math.Pow(10, factor * 3);
-        // Arrondir à une décimale, mais n'afficher la décimale que si nécessaire (12 au lieu de 12,0)
-        double rounded = Math.Round(value, 1);
-        if (Math.Abs(rounded - Math.Truncate(rounded)) < 0.000001)
-        {
-            return ((long)rounded).ToString() + unit;
-        }
-        return rounded.ToString("F1") + unit;
+
+        return valueText + suffix;
     }
 }

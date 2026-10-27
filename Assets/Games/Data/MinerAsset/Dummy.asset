@@ -16,6 +16,6 @@ MonoBehaviour:
   FireRate: 1
   CritRate: 0
   CritDamage: 1.5
-  icon: {fileID: 1023558283261890152, guid: f618b16792043d24a95ce9ee30767737, type: 3}
-  sprite1: {fileID: -2593720543164649129, guid: 792fd70e02914e34db268d5c67e74af4, type: 3}
-  sprite2: {fileID: -7080593530818178808, guid: 4f54c75a5458544419d49a890a11c76e, type: 3}
+  icon: {fileID: -7668596672532877539, guid: 74c5473438694774abca8a9bce628976, type: 3}
+  sprite1: {fileID: 3743347946993326939, guid: 7a746675c3495c24dac01af252e6ae99, type: 3}
+  sprite2: {fileID: 6611600679580647900, guid: 4b1bafad62bf1c841b47c16a049d0697, type: 3}

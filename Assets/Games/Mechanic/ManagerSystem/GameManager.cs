@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -10,19 +12,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private RectTransform slimeButton; // assign the UI button RectTransform in the inspector
     [SerializeField] private float slimeDuration = 0.6f;
     [SerializeField] private float slimeIntensity = 0.35f; // how strong the stretch/squash is
-    [SerializeField] private MoneyConvertAndSave goldConvert;
+    [SerializeField] public MoneyConvertAndSave goldConvert;
     [SerializeField] private Transform uiCanvasTransform;
+    [SerializeField] private GestionModifyWorkerAssignation gestionModifyWorkerAssignation;
+    [SerializeField] private GameObject prefabShowMoney;
     // Expose UI parent for other classes to instantiate UI elements under
     public Transform UiCanvasTransform => uiCanvasTransform;
     
-    public int coins; 
+    public double coins;
     private Coroutine _slimeCoroutine;
     private Vector3 _originalScale;
     private string _coinsString;
     Dictionary<string, double> _upgradeClick = new Dictionary<string, double>();
     Dictionary<string, double> _upgradeAutomatic = new Dictionary<string, double>();
-    private int _damagePickaxe = 1;
-    private int _damageAutomatic = 1;
+    private double _damagePickaxe = 1d;
+    private double _damageAutomatic = 1d;
     private bool _firstLaunchDelegate = true;
     
     [SerializeField] private ItemDatabase itemDatabase;
@@ -38,15 +42,25 @@ public class GameManager : MonoBehaviour
 
     public void OnClickButton()
     {
-        coins += _damagePickaxe;
-        CalculateNewMoney();
+        Vector2 mouseScreenPos = Mouse.current.position.ReadValue();
+        AddCoins(_damagePickaxe, mouseScreenPos);
         PlaySlimeEffect();
+    }
+
+    public void AddCoins(double amount, Vector2 startPosition)
+    {
+        coins += amount;
+        CalculateNewMoney();
+        ShowMoneyGet(amount, startPosition);
     }
 
     public void CalculateNewMoney()
     {
-        _coinsString = goldConvert.ConvertMoneyLogic(coins);
-        coinsText.text = _coinsString;
+        _coinsString = goldConvert != null ? goldConvert.ConvertMoneyLogic(coins) : coins.ToString();
+        if (coinsText != null)
+        {
+            coinsText.text = _coinsString;
+        }
     }
 
     public void PlaySlimeEffect()
@@ -80,7 +94,7 @@ public class GameManager : MonoBehaviour
         _slimeCoroutine = null;
     }
 
-    public void ApplyUpgradePickAxe(string upgradeID, double upgradePower)          
+    public void ApplyUpgradePickAxe(string upgradeID, double upgradePower)
     {
         if (_upgradeClick.ContainsKey(upgradeID))
         {
@@ -90,56 +104,37 @@ public class GameManager : MonoBehaviour
         {
             _upgradeClick.Add(upgradeID, upgradePower);
         }
-        double newPower = 0;
+
+        double newPower = 0d;
         foreach (var pair in _upgradeClick)
         {
             newPower += pair.Value;
         }
-        _damagePickaxe = (int)newPower;
-        print("New Pickaxe Damage: " + _damagePickaxe);
+
+        _damagePickaxe = newPower;
     }
 
-    /*
-    public void ApplyUpgradeAutomatic(string upgradeID, double upgradePower)
+    public void ShowMoneyGet(double moneyGet, Vector2 startPosition = default)
     {
-        if (_upgradeAutomatic.ContainsKey(upgradeID))
+        if (prefabShowMoney == null)
         {
-            _upgradeAutomatic[upgradeID] = upgradePower;
+            return;
         }
-        else
+
+        GameObject moneyObject = Instantiate(prefabShowMoney, uiCanvasTransform);
+        ShowMoney showMoney = moneyObject.GetComponent<ShowMoney>();
+
+        if (showMoney != null)
         {
-            _upgradeAutomatic.Add(upgradeID, upgradePower);
-            if (_firstLaunchDelegate)
-            {
-                _firstLaunchDelegate = false;
-                StartCoroutine(AutomaticClick());
-            }
-        }
-        double newPower = 0;
-        foreach (var pair in _upgradeAutomatic)
-        {
-            newPower += pair.Value;
-        }
-        _damageAutomatic = (int)newPower;
-    }
-    
-    
-    private System.Collections.IEnumerator AutomaticClick()
-    {
-        print("Automatic Click");
-        while (true)
-        {
-            coins += _damageAutomatic;
-            CalculateNewMoney();
-            yield return new WaitForSeconds(1f); // Adjust the delay as needed
+            showMoney.transform.SetAsLastSibling(); // Ensure it appears on top of other UI elements
+            showMoney.Initialize(moneyText: "+" + goldConvert.ConvertMoneyLogic(moneyGet), startPosition: startPosition);
         }
     }
-    */
 
     // Spawn a single automatic worker prefab for the given item and store the instance
     public void SpawnAutomaticWorker(ItemData item)
     {
-        if (item == null)
+        if (item == null || uiCanvasTransform == null)
         {
             Debug.LogWarning("SpawnAutomaticWorker called with null item");
             return;
@@ -149,12 +144,6 @@ public class GameManager : MonoBehaviour
         if (item.automaticWorkerPrefab == null)
         {
             Debug.LogWarning($"No automaticWorkerPrefab set for item {item.UpgradeName}");
-            return;
-        }
-
-        if (uiCanvasTransform == null)
-        {
-            Debug.LogWarning("UI Canvas Transform not assigned in GameManager. Cannot set parent for worker prefab.");
             return;
         }
 
@@ -175,14 +164,8 @@ public class GameManager : MonoBehaviour
         if (upgradeUI != null)
         {
             upgradeUI.Initialize(item,this);
-            print("Passed");
         }
-        else
-        {
-            print("Not Passed");;
-        }
-
-        // Apply horizontal flip if requested in data — flip Image component only when available
+        
         if (item.automaticWorkerFlipX)
         {
             Image img = instance.GetComponentInChildren<Image>();
@@ -204,6 +187,12 @@ public class GameManager : MonoBehaviour
         instance.SetActive(true);
         AnimatedSprite animatedSprite = instance.GetComponentInChildren<AnimatedSprite>();
         _spawnedWorkerMap.Add(item.UpgradeName, animatedSprite);
+        if (gestionModifyWorkerAssignation != null)
+        {
+            gestionModifyWorkerAssignation.SpawnNewAssignation(animatedSprite);
+        }
+        
+        
 
         Debug.Log($"Spawned automatic worker for {item.UpgradeName}");
     }

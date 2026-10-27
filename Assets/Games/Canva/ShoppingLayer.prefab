@@ -139,11 +139,11 @@ RectTransform:
   m_GameObject: {fileID: 1146927995948214048}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4094691554013591710}
-  - {fileID: 5026402156977716718}
+  - {fileID: 8171514959016404076}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -377,54 +377,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &3196292379217190932
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5026402156977716718}
-  - component: {fileID: 636665966513398428}
-  m_Layer: 0
-  m_Name: GestionSpawnUpgrade
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5026402156977716718
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3196292379217190932}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.697486, y: 0.697486, z: 0.697486}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3911447076770960641}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &636665966513398428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3196292379217190932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8728b2b264c2a14bb18e36408278f3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GestionSpawnUpgrade
-  itemDatabase: {fileID: 11400000, guid: 91170a99fd1124e4995629f8746e1cf0, type: 2}
-  scrollContent: {fileID: 2081656484236480960}
-  prefabUpgrade: {fileID: 1146927995948214048, guid: 5616250e85fd93b45a107e09580c9e63, type: 3}
-  gameManager: {fileID: 0}
 --- !u!1 &3870719028312621394
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,6 +728,54 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &5183835725097023703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8171514959016404076}
+  - component: {fileID: 5385623444970389501}
+  m_Layer: 0
+  m_Name: GestionModifyWorkerAssignation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8171514959016404076
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5183835725097023703}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.00012376599, y: 0, z: 0}
+  m_LocalScale: {x: 0.5069455, y: 0.5069455, z: 0.5069455}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3911447076770960641}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5385623444970389501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5183835725097023703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08c2c7564588eed4f9569dee03d49081, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GestionModifyWorkerAssignation
+  _dataMinerList: {fileID: 0}
+  scrollContent: {fileID: 2081656484236480960}
+  prefabAssign: {fileID: 1146927995948214048, guid: f940ef769f7877b449892a64081481ba, type: 3}
+  gameManager: {fileID: 0}
 --- !u!1 &7460318602377790361
 GameObject:
   m_ObjectHideFlags: 0

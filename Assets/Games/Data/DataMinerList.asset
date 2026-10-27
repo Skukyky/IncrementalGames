@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 799ecc0bf08a4758bd713fb6359a6f23, type: 3}
   m_Name: DataMinerList
   m_EditorClassIdentifier: Assembly-CSharp::DataMinerList
-  items: []
+  MinerList:
+  - {fileID: 11400000, guid: d52e75bb11722f342be1f9f34d93d3a1, type: 2}
+  - {fileID: 11400000, guid: 44e4b2c5e2e4de7498808fa8c78b3e0f, type: 2}

@@ -13,12 +13,21 @@ MonoBehaviour:
   m_Name: ItemDatabase
   m_EditorClassIdentifier: Assembly-CSharp::ItemDatabase
   items:
-  - UpgradeName: Worker 1
-    basePriceUpgrade: 1
-    nbrAmelioMaxUpgrade: 25
-    baseDamageUpgrade: 2
-    iconUpgrade: {fileID: 1023558283261890152, guid: f618b16792043d24a95ce9ee30767737, type: 3}
+  - UpgradeName: Miner 1
+    basePriceUpgrade: 45
+    nbrAmelioMaxUpgrade: 15
+    baseDamageUpgrade: 10
+    iconUpgrade: {fileID: -7668596672532877539, guid: 74c5473438694774abca8a9bce628976, type: 3}
     automaticWorkerPrefab: {fileID: 6016740213501217867, guid: 68bb8fcb4da02eb4592c6bf4e0bd7e71, type: 3}
-    automaticWorkerSpawnPosition: {x: 115, y: 8}
+    automaticWorkerSpawnPosition: {x: 100, y: 8}
     automaticWorkerFlipX: 0
+    automaticWorkerCharacterData: {fileID: 11400000, guid: 4067f5a4629ba1c42985c8effe841a8b, type: 2}
+  - UpgradeName: Miner 2
+    basePriceUpgrade: 70
+    nbrAmelioMaxUpgrade: 15
+    baseDamageUpgrade: 20
+    iconUpgrade: {fileID: -7668596672532877539, guid: 74c5473438694774abca8a9bce628976, type: 3}
+    automaticWorkerPrefab: {fileID: 6016740213501217867, guid: 68bb8fcb4da02eb4592c6bf4e0bd7e71, type: 3}
+    automaticWorkerSpawnPosition: {x: -100, y: 8}
+    automaticWorkerFlipX: 1
     automaticWorkerCharacterData: {fileID: 11400000, guid: 4067f5a4629ba1c42985c8effe841a8b, type: 2}

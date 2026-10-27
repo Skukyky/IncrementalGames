@@ -3,35 +3,44 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class UpgradeItemUI : MonoBehaviour, IUpgradeUI
+public class UpgradeItemUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text itemNameText;
     [SerializeField] private TMP_Text priceText;
     [SerializeField] private Image iconImage;
     [SerializeField] private Button upgradeButton;
     [SerializeField] private GameManager gameManagerInstance;
-    [SerializeField] private ItemData currentItemData;
+    [SerializeField] private ItemData currentItemDataNew;
     [SerializeField] private bool hasInitializedManual = false;
-    private int currentPrice;
+    [SerializeField] private GestionSpawnUpgrade gestionSpawnUpgradeInstance;
+    private new ItemData currentItemData;
+    private double currentPrice;
     private int Level = 1;
     private bool localHasTriggeredGlobalSpawn = false;
     
-    
-
-    public void Initialize(ItemData itemData, GameManager gameManager)
+    private void Start()
     {
-        currentItemData = itemData;
+        if (currentItemDataNew != null && gameManagerInstance != null && hasInitializedManual)
+        {
+            Initialize(currentItemDataNew, gameManagerInstance, gestionSpawnUpgradeInstance);
+        }
+    }
+    
+    public void Initialize(ItemData itemData, GameManager gameManager,GestionSpawnUpgrade parentRef)
+    {
+        currentItemData = itemData != null ? itemData.Clone() : null;
         gameManagerInstance = gameManager;
-        print("Initialized " + itemData.UpgradeName);
+        gestionSpawnUpgradeInstance = parentRef;
+        print("Initialized " + currentItemData.baseDamageUpgrade);
         
         if (itemNameText != null)
-            itemNameText.text = itemData.UpgradeName;
+            itemNameText.text = currentItemData.UpgradeName;
 
         if (priceText != null)
-            priceText.text = itemData.basePriceUpgrade.ToString();
+            priceText.text = gameManagerInstance != null ? gameManagerInstance.goldConvert.ConvertMoneyLogic(currentItemData.basePriceUpgrade) : currentItemData.basePriceUpgrade.ToString();
 
-        if (iconImage != null && itemData.iconUpgrade != null)
-            iconImage.sprite = itemData.iconUpgrade;
+        if (iconImage != null && currentItemData.iconUpgrade != null)
+            iconImage.sprite = currentItemData.iconUpgrade;
         
         if (upgradeButton != null)
             upgradeButton.onClick.AddListener(OnUpgradeButtonClicked);
@@ -39,19 +48,15 @@ public class UpgradeItemUI : MonoBehaviour, IUpgradeUI
         CalculateNewPrice();
     }
 
-    private void Start()
-    {
-        if (currentItemData != null && gameManagerInstance != null && hasInitializedManual)
-        {
-            Initialize(currentItemData, gameManagerInstance);
-        }
-    }
-
     private void OnUpgradeButtonClicked()
     {
         if (Level < currentItemData.nbrAmelioMaxUpgrade && gameManagerInstance.coins >= currentPrice)
         {
             Level++;
+            if (Level == 2)
+            {
+                gestionSpawnUpgradeInstance.NewSpawn();
+            }
             gameManagerInstance.coins -= currentPrice;
             gameManagerInstance.CalculateNewMoney();
             CalculateNewPrice();
@@ -62,10 +67,11 @@ public class UpgradeItemUI : MonoBehaviour, IUpgradeUI
             }
             else if (hasInitializedManual)
             {
-                gameManagerInstance.ApplyUpgradePickAxe(currentItemData.UpgradeName, (int)ChangePower());
+                gameManagerInstance.ApplyUpgradePickAxe(currentItemData.UpgradeName, ChangePower());
             }
-                    
+                     
             currentItemData.baseDamageUpgrade = (int)ChangePower();
+            print("New Power: " + currentItemData.baseDamageUpgrade);
         }
         
     }
@@ -82,14 +88,13 @@ public class UpgradeItemUI : MonoBehaviour, IUpgradeUI
             RefreshPriceText("Max Level");
             return;
         }
+
         currentPrice = currentItemData.basePriceUpgrade * Level;
-        RefreshPriceText(currentPrice.ToString());
+        RefreshPriceText(gameManagerInstance != null ? gameManagerInstance.goldConvert.ConvertMoneyLogic(currentPrice) : currentPrice.ToString());
     }
 
     private double ChangePower()
     {
-        //return currentItemData.basePower * Level;
-        
-        return Math.Pow(2, Level - 1); // Example: exponential growth based on level
+        return currentItemData.baseDamageUpgrade * (Level - 1);
     }
 }

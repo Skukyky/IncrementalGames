@@ -8,18 +8,13 @@ public class GestionSpawnUpgrade : MonoBehaviour
     [SerializeField] private GameObject prefabUpgrade;
     [SerializeField] private GameManager gameManager;
 
-    
+    private int IndexAllReadySpawnedItems = 0;
     private List<GameObject> spawnedItems = new List<GameObject>();
 
     private void Start()
     {
-        if (itemDatabase == null || scrollContent == null || prefabUpgrade == null)
-        {
-            Debug.LogError("GestionSpawnUpgrade: Veuillez assigner itemDatabase, scrollContent et prefabUpgrade dans l'inspecteur");
-            return;
-        }
+       
         
-        SpawnUpgrades();
     }
 
     public void SpawnUpgrades()
@@ -35,10 +30,10 @@ public class GestionSpawnUpgrade : MonoBehaviour
             spawnedItems.Add(newUpgrade);
             
             // Récupérer le composant UI pour le configurer avec les données de l'item
-            IUpgradeUI upgradeUI = newUpgrade.GetComponent<IUpgradeUI>();
+            UpgradeItemUI upgradeUI = newUpgrade.GetComponent<UpgradeItemUI>();
             if (upgradeUI != null)
             {
-                upgradeUI.Initialize(item,gameManager);
+                upgradeUI.Initialize(item,gameManager, this);
             }
         }
     }
@@ -52,8 +47,20 @@ public class GestionSpawnUpgrade : MonoBehaviour
         spawnedItems.Clear();
     }
 
-    public void RefreshSpawns()
+    public void NewSpawn()
     {
-        SpawnUpgrades();
+        if (IndexAllReadySpawnedItems < itemDatabase.items.Count)
+        {
+            
+            ItemData item = itemDatabase.items[IndexAllReadySpawnedItems];
+            GameObject newUpgrade = Instantiate(prefabUpgrade, scrollContent);
+            spawnedItems.Add(newUpgrade);
+            UpgradeItemUI upgradeUI = newUpgrade.GetComponent<UpgradeItemUI>();
+            if (upgradeUI != null)
+            {
+                upgradeUI.Initialize(item,gameManager, this);
+            }
+            IndexAllReadySpawnedItems++;
+        }
     }
 }

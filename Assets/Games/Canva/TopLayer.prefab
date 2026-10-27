@@ -291,7 +291,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9099617691273531051, guid: 6d1ef125eabdaf54894b22ccd27aa6b8, type: 3}
       propertyPath: m_text
-      value: Parametre
+      value: 'Parametres
+
+'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -436,7 +438,7 @@ PrefabInstance:
     - target: {fileID: 1800611261718289150, guid: e08a60c1de0effd4cb3e018a5d0a8f57, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 7592782271583118183, guid: f798191b3aaed454b9131cf075d6133b, type: 3}
     - target: {fileID: 3911447076770960641, guid: e08a60c1de0effd4cb3e018a5d0a8f57, type: 3}
       propertyPath: m_Pivot.x
       value: 0

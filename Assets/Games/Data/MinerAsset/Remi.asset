@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08909529f8c8464fa7e69ebd735787ee, type: 3}
   m_Name: Remi
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
-  CharacterName: None
-  FireRate: 1
-  CritRate: 0
+  CharacterName: Remi
+  FireRate: 0.5
+  CritRate: 5
   CritDamage: 1.5
-  icon: {fileID: 0}
-  sprite1: {fileID: 0}
-  sprite2: {fileID: 0}
+  icon: {fileID: 3756579273184745988, guid: f1c33e581e91a964f99dd2adf06fea32, type: 3}
+  sprite1: {fileID: -2593720543164649129, guid: 792fd70e02914e34db268d5c67e74af4, type: 3}
+  sprite2: {fileID: 6320383947649592146, guid: a906fccde12cbe74ebdf6e8233be031e, type: 3}

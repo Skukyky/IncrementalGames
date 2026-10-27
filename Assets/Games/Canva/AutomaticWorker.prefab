@@ -166,4 +166,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AnimatedSprite
   spriteRenderer: {fileID: 7675254870360310983}
   gameManager: {fileID: 0}
-  frameTime: 0.5
+  itemDataLocal:
+    UpgradeName: None
+    basePriceUpgrade: 1
+    nbrAmelioMaxUpgrade: 1
+    baseDamageUpgrade: 1
+    iconUpgrade: {fileID: 0}
+    automaticWorkerPrefab: {fileID: 0}
+    automaticWorkerSpawnPosition: {x: 0, y: 0}
+    automaticWorkerFlipX: 0
+    automaticWorkerCharacterData: {fileID: 0}

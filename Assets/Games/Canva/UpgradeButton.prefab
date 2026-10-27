@@ -259,6 +259,19 @@ MonoBehaviour:
   priceText: {fileID: 9095232617567774193}
   iconImage: {fileID: 5920025263325304367}
   upgradeButton: {fileID: 7476297586039958528}
+  gameManagerInstance: {fileID: 0}
+  currentItemData:
+    UpgradeName: None
+    basePriceUpgrade: 1
+    nbrAmelioMaxUpgrade: 1
+    baseDamageUpgrade: 1
+    iconUpgrade: {fileID: 0}
+    automaticWorkerPrefab: {fileID: 0}
+    automaticWorkerSpawnPosition: {x: 0, y: 0}
+    automaticWorkerFlipX: 0
+    automaticWorkerCharacterData: {fileID: 0}
+  hasInitializedManual: 0
+  gestionSpawnUpgradeInstance: {fileID: 0}
 --- !u!1 &1752732884642216350
 GameObject:
   m_ObjectHideFlags: 0
