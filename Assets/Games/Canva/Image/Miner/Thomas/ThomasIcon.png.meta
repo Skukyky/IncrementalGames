@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a7a5cc69482e74f42b2e5306e81c3453
+guid: 48511d85034bd1e43bfbd6d3a6ad49d0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8161948943612211361
-    second: ThomasFarmIdle_0
+      213: 6832784522543880101
+    second: ThomasIcon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -128,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ThomasFarmIdle_0
+      name: ThomasIcon_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 2
+        y: 0
         width: 400
-        height: 396
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,8 +143,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f5f8e1dfdaeeabe80800000000000000
-      internalID: -8161948943612211361
+      spriteID: 5a7d305525de2de50800000000000000
+      internalID: 6832784522543880101
       vertices: []
       indices: 
       edges: []
@@ -153,7 +153,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 41dadb358b4385d4ca939d0093cde276
+    spriteID: 58c105a09dfe3544f95c7db80ac699e3
     internalID: 0
     vertices: []
     indices: 
@@ -163,7 +163,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ThomasFarmIdle_0: -8161948943612211361
+      ThomasIcon_0: 6832784522543880101
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

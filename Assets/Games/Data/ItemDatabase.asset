@@ -14,18 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemDatabase
   items:
   - UpgradeName: Miner 1
-    basePriceUpgrade: 45
+    basePriceUpgrade:
+      x: 40
+      y: 0
     nbrAmelioMaxUpgrade: 15
-    baseDamageUpgrade: 10
+    baseDamageUpgrade:
+      x: 15
+      y: 0
     iconUpgrade: {fileID: -7668596672532877539, guid: 74c5473438694774abca8a9bce628976, type: 3}
     automaticWorkerPrefab: {fileID: 6016740213501217867, guid: 68bb8fcb4da02eb4592c6bf4e0bd7e71, type: 3}
     automaticWorkerSpawnPosition: {x: 100, y: 8}
     automaticWorkerFlipX: 0
     automaticWorkerCharacterData: {fileID: 11400000, guid: 4067f5a4629ba1c42985c8effe841a8b, type: 2}
   - UpgradeName: Miner 2
-    basePriceUpgrade: 70
+    basePriceUpgrade:
+      x: 72
+      y: 0
     nbrAmelioMaxUpgrade: 15
-    baseDamageUpgrade: 20
+    baseDamageUpgrade:
+      x: 25
+      y: 0
     iconUpgrade: {fileID: -7668596672532877539, guid: 74c5473438694774abca8a9bce628976, type: 3}
     automaticWorkerPrefab: {fileID: 6016740213501217867, guid: 68bb8fcb4da02eb4592c6bf4e0bd7e71, type: 3}
     automaticWorkerSpawnPosition: {x: -100, y: 8}

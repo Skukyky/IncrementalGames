@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,11 +9,11 @@ public class ShowMoney : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private TMP_Text text;
 
-    public void Initialize(float riseDistance = 30f, float duration = 0.5f, string moneyText = "+1", Vector2 startPosition = default)
+    public void Initialize(float riseDistance = 50f, float duration = 1f, string moneyText = "+1", Vector2 startPosition = default)
     {
-        if (text != null)
+        if (text )
         {
-            text.text = moneyText;
+            text.text = moneyText;  
         }
         this.transform.position = startPosition ;
 
@@ -26,7 +27,7 @@ public class ShowMoney : MonoBehaviour
         Vector3 startPosition = transform.position;
         Vector3 targetPosition = startPosition + Vector3.up * riseDistance;
 
-        Vector2 startAnchoredPosition = rectTransform != null ? rectTransform.anchoredPosition : Vector2.zero;
+        Vector2 startAnchoredPosition = rectTransform ? rectTransform.anchoredPosition : Vector2.zero;
         Vector2 targetAnchoredPosition = startAnchoredPosition + Vector2.up * riseDistance;
 
 
@@ -34,9 +35,9 @@ public class ShowMoney : MonoBehaviour
 
         while (elapsed < duration)
         {
-            float t = elapsed / duration;
+            float t = Mathf.Pow(elapsed, 0.4f);
 
-            if (rectTransform != null)
+            if (rectTransform )
             {
                 rectTransform.anchoredPosition = Vector2.Lerp(startAnchoredPosition, targetAnchoredPosition, t);
             }
@@ -45,14 +46,14 @@ public class ShowMoney : MonoBehaviour
                 transform.position = Vector3.Lerp(startPosition, targetPosition, t);
             }
 
-            if (text != null)
+            if (text)
             {
                 Color color = text.color;
                 color.a = Mathf.Lerp(1f, 0f, t);
                 text.color = color;
             }
             
-            if (image != null)
+            if (image)
             {
                 Color color = image.color;
                 color.a = Mathf.Lerp(1f, 0f, t);
@@ -63,7 +64,7 @@ public class ShowMoney : MonoBehaviour
             yield return null;
         }
 
-        if (rectTransform != null)
+        if (rectTransform)
         {
             rectTransform.anchoredPosition = targetAnchoredPosition;
         }
@@ -72,14 +73,14 @@ public class ShowMoney : MonoBehaviour
             transform.position = targetPosition;
         }
 
-        if (text != null)
+        if (text)
         {
             Color color = text.color;
             color.a = 0f;
             text.color = color;
         }
         
-        if (image != null)
+        if (image)
         {
             Color color = image.color;
             color.a = 0f;

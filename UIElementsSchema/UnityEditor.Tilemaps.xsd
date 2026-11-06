@@ -25,7 +25,7 @@
       <xs:extension xmlns:q5="UnityEngine.UIElements" base="q5:BindableElementType">
         <xs:choice />
         <xs:attribute name="label" type="xs:string" />
-        <xs:attribute name="value" type="xs:string" />
+        <xs:attribute default="project://database/?fileID=0&amp;guid=&amp;type=0#Tilemap" name="value" type="xs:string" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -59,7 +59,7 @@
       <xs:extension xmlns:q13="UnityEngine.UIElements" base="q13:BindableElementType">
         <xs:choice />
         <xs:attribute name="label" type="xs:string" />
-        <xs:attribute name="value" type="xs:string" />
+        <xs:attribute default="project://database/Assets/Games/Asset/TilePalette/BackGound.prefab?fileID=8307706371211547313&amp;guid=fb879ba096e8e60438fcc937d481fd27&amp;type=3#BackGound" name="value" type="xs:string" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>

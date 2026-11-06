@@ -13,7 +13,10 @@ public class GestionSpawnUpgrade : MonoBehaviour
 
     private void Start()
     {
-       
+        if (gameManager)
+        {
+            gameManager.GetGestionSpawn(this);
+        }
         
     }
 
@@ -38,13 +41,14 @@ public class GestionSpawnUpgrade : MonoBehaviour
         }
     }
 
-    private void ClearSpawnedItems()
+    public void ClearSpawnedItems()
     {
         foreach (GameObject item in spawnedItems)
         {
             Destroy(item);
         }
         spawnedItems.Clear();
+        IndexAllReadySpawnedItems = 0;
     }
 
     public void NewSpawn()

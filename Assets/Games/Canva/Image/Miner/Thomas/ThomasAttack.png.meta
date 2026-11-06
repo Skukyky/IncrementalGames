@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: f1c33e581e91a964f99dd2adf06fea32
+guid: 669c14f2d6850a349890a5bca236a1c7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5576448134560961667
-    second: RemiUpgrade_0
-  - first:
-      213: 3756579273184745988
-    second: RemiUpgrade_1
+      213: 1204848395684356710
+    second: ThomasAttack_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -131,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RemiUpgrade
+      name: ThomasAttack_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 150
-        height: 150
+        width: 475
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -146,8 +143,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 40a95cc12fc022430800000000000000
-      internalID: 3756579273184745988
+      spriteID: 66227f87b3b78b010800000000000000
+      internalID: 1204848395684356710
       vertices: []
       indices: 
       edges: []
@@ -156,7 +153,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ebf1b32a9eb07b24da47d348da7ee56d
+    spriteID: fa8c54bdf054b7242bfaa4b819f9f26e
     internalID: 0
     vertices: []
     indices: 
@@ -166,8 +163,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      RemiUpgrade: 3756579273184745988
-      RemiUpgrade_0: -5576448134560961667
+      ThomasAttack_0: 1204848395684356710
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

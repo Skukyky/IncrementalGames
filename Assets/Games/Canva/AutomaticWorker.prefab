@@ -168,9 +168,13 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   itemDataLocal:
     UpgradeName: None
-    basePriceUpgrade: 1
+    basePriceUpgrade:
+      x: 1
+      y: 1
     nbrAmelioMaxUpgrade: 1
-    baseDamageUpgrade: 1
+    baseDamageUpgrade:
+      x: 0
+      y: 0
     iconUpgrade: {fileID: 0}
     automaticWorkerPrefab: {fileID: 0}
     automaticWorkerSpawnPosition: {x: 0, y: 0}

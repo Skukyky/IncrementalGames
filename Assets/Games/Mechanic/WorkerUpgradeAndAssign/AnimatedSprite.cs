@@ -1,5 +1,8 @@
+using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class AnimatedSprite : MonoBehaviour
 {
@@ -63,10 +66,10 @@ public class AnimatedSprite : MonoBehaviour
     private void AutomaticClick()
     {
         Vector3 spawnPosition = transform.position;
-        double money = 0d;
-        if (Random.value * 100 < itemDataLocal.automaticWorkerCharacterData.CritRate)
+        double2 money = double2.zero;
+        if (Random.value * 100 <= itemDataLocal.automaticWorkerCharacterData.CritRate)
         {
-            money = itemDataLocal.baseDamageUpgrade * itemDataLocal.automaticWorkerCharacterData.CritDamage;
+            money = CalculateCrit();
             gameManager.AddCoins(money, transform.position + new Vector3(0f, 100f, 100f));
             gameManager.PlaySlimeEffect();
         }
@@ -76,4 +79,19 @@ public class AnimatedSprite : MonoBehaviour
             gameManager.AddCoins(money, transform.position + new Vector3(0f, 100f, 100f));
         }
     }
+
+    private double2 CalculateCrit()
+    {
+        double2 crit = double2.zero;
+        crit.x = itemDataLocal.baseDamageUpgrade.x * itemDataLocal.automaticWorkerCharacterData.CritDamage;
+        if (crit.x > 1000)
+        {
+            crit.x /= 1000;
+            crit.y += 1;
+        }
+        crit.x = Math.Round(crit.x, 3);
+        return crit;
+    }
+    
+    
 }

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c23f124bb89c91c43a332289d563ae13
+guid: aad45393fad9a4446a8694f13c80cc76
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7249206945799879953
-    second: ThomasUpgrade_0
+      213: -2611865836952815381
+    second: RemiIcon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -128,23 +128,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ThomasUpgrade_0
+      name: RemiIcon_0
       rect:
         serializedVersion: 2
-        x: 26
+        x: 0
         y: 0
-        width: 99
-        height: 150
+        width: 400
+        height: 400
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 11d32bb2f4b5a9460800000000000000
-      internalID: 7249206945799879953
+      spriteID: be8f27b0cd9c0cbd0800000000000000
+      internalID: -2611865836952815381
       vertices: []
       indices: 
       edges: []
@@ -153,7 +153,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: ee25e3b3df067ec49affd8587b71804f
     internalID: 0
     vertices: []
     indices: 
@@ -163,7 +163,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ThomasUpgrade_0: 7249206945799879953
+      RemiIcon_0: -2611865836952815381
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

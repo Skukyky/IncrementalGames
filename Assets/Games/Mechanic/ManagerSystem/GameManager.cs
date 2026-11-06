@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,18 +18,24 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform uiCanvasTransform;
     [SerializeField] private GestionModifyWorkerAssignation gestionModifyWorkerAssignation;
     [SerializeField] private GameObject prefabShowMoney;
-    // Expose UI parent for other classes to instantiate UI elements under
+    [SerializeField] private GachaAndRebirth gachaAndRebirth;
+    [SerializeField] public AnimationCurve priceCurve;
+    [SerializeField] public AnimationCurve powerCurve;
     public Transform UiCanvasTransform => uiCanvasTransform;
+    private GestionSpawnUpgrade _gestionSpawnUpgrade;
     
-    public double coins;
+    public double2 Coins =  new double2(0, 0);
     private Coroutine _slimeCoroutine;
     private Vector3 _originalScale;
     private string _coinsString;
-    Dictionary<string, double> _upgradeClick = new Dictionary<string, double>();
-    Dictionary<string, double> _upgradeAutomatic = new Dictionary<string, double>();
-    private double _damagePickaxe = 1d;
-    private double _damageAutomatic = 1d;
+    Dictionary<string, double2> _upgradeClick = new Dictionary<string, double2>();
+    Dictionary<string, double2> _upgradeAutomatic = new Dictionary<string, double2>();
+    private double2 _damagePickaxe = new double2(1d, 0);
+    private double2 _damageAutomatic = new double2(1d, 0);
     private bool _firstLaunchDelegate = true;
+    private UpgradeItemUI _PickaxeUpgrade;
+
+    public int _numberOfRebirth = 1;
     
     [SerializeField] private ItemDatabase itemDatabase;
 
@@ -43,21 +51,25 @@ public class GameManager : MonoBehaviour
     public void OnClickButton()
     {
         Vector2 mouseScreenPos = Mouse.current.position.ReadValue();
-        AddCoins(_damagePickaxe, mouseScreenPos);
         PlaySlimeEffect();
+        AddCoins(_damagePickaxe, mouseScreenPos);
     }
 
-    public void AddCoins(double amount, Vector2 startPosition)
+    public void AddCoins(double2 amount, Vector2 startPosition)
     {
-        coins += amount;
+        amount.x = Math.Round(amount.x, 3);
+        CalculNewMoney(amount);
         CalculateNewMoney();
         ShowMoneyGet(amount, startPosition);
     }
 
     public void CalculateNewMoney()
     {
-        _coinsString = goldConvert != null ? goldConvert.ConvertMoneyLogic(coins) : coins.ToString();
-        if (coinsText != null)
+        if (goldConvert)
+        {
+            _coinsString = goldConvert.MoneyConvert(Coins);
+        }
+        if (coinsText)
         {
             coinsText.text = _coinsString;
         }
@@ -94,8 +106,12 @@ public class GameManager : MonoBehaviour
         _slimeCoroutine = null;
     }
 
-    public void ApplyUpgradePickAxe(string upgradeID, double upgradePower)
+    public void ApplyUpgradePickAxe(string upgradeID, double2 upgradePower, UpgradeItemUI pickaxeUpgrade)
     {
+        if (!_PickaxeUpgrade)
+        {
+            _PickaxeUpgrade = pickaxeUpgrade;
+        }
         if (_upgradeClick.ContainsKey(upgradeID))
         {
             _upgradeClick[upgradeID] = upgradePower;
@@ -105,7 +121,7 @@ public class GameManager : MonoBehaviour
             _upgradeClick.Add(upgradeID, upgradePower);
         }
 
-        double newPower = 0d;
+        double2 newPower = 0d;
         foreach (var pair in _upgradeClick)
         {
             newPower += pair.Value;
@@ -114,9 +130,9 @@ public class GameManager : MonoBehaviour
         _damagePickaxe = newPower;
     }
 
-    public void ShowMoneyGet(double moneyGet, Vector2 startPosition = default)
+    public void ShowMoneyGet(double2 moneyGet = default, Vector2 startPosition = default)
     {
-        if (prefabShowMoney == null)
+        if (!prefabShowMoney)
         {
             return;
         }
@@ -124,32 +140,18 @@ public class GameManager : MonoBehaviour
         GameObject moneyObject = Instantiate(prefabShowMoney, uiCanvasTransform);
         ShowMoney showMoney = moneyObject.GetComponent<ShowMoney>();
 
-        if (showMoney != null)
+        if (showMoney)
         {
             showMoney.transform.SetAsLastSibling(); // Ensure it appears on top of other UI elements
-            showMoney.Initialize(moneyText: "+" + goldConvert.ConvertMoneyLogic(moneyGet), startPosition: startPosition);
+            showMoney.Initialize(moneyText: "+" + goldConvert.MoneyConvert(moneyGet), startPosition: startPosition);
         }
     }
 
     // Spawn a single automatic worker prefab for the given item and store the instance
     public void SpawnAutomaticWorker(ItemData item)
     {
-        if (item == null || uiCanvasTransform == null)
+        if (item == null || uiCanvasTransform == null || _spawnedWorkerMap.ContainsKey(item.UpgradeName) || item.automaticWorkerPrefab == null)
         {
-            Debug.LogWarning("SpawnAutomaticWorker called with null item");
-            return;
-        }
-        
-
-        if (item.automaticWorkerPrefab == null)
-        {
-            Debug.LogWarning($"No automaticWorkerPrefab set for item {item.UpgradeName}");
-            return;
-        }
-
-        if (_spawnedWorkerMap.ContainsKey(item.UpgradeName))
-        {
-            Debug.Log($"Worker for {item.UpgradeName} already spawned");
             return;
         }
 
@@ -191,10 +193,122 @@ public class GameManager : MonoBehaviour
         {
             gestionModifyWorkerAssignation.SpawnNewAssignation(animatedSprite);
         }
-        
-        
-
-        Debug.Log($"Spawned automatic worker for {item.UpgradeName}");
     }
+
+    public void CalculNewMoney(double2 changedMoney, bool isAdd = true)
+    {
+        double2 HighterValue = 0;
+        double2 LowerValue = 0;
+        switch (Coins.y.CompareTo(changedMoney.y))
+        {
+            case 1: // Coins.y > changedMoney.y
+                HighterValue = Coins;
+                LowerValue = changedMoney;
+                break;
+            case -1: // Coins.y < changedMoney.y
+                HighterValue = changedMoney;
+                LowerValue = Coins;
+                break;
+            case 0: // Coins.y == changedMoney.y
+                if (Coins.x >= changedMoney.x)
+                {
+                    HighterValue = Coins;
+                    LowerValue = changedMoney;
+                }
+                else
+                {
+                    HighterValue = changedMoney;
+                    LowerValue = Coins;
+                }
+                break;
+        }
+
+        if (Math.Abs(HighterValue.y - LowerValue.y) > 1)
+        {
+            Coins = HighterValue;
+            return;
+        }
+        if (isAdd)
+        {
+            HighterValue.x += LowerValue.x / Math.Pow(10,3*Math.Abs(HighterValue.y - LowerValue.y));
+            if (HighterValue.x >= 1000)
+            {
+                HighterValue.x /= 1000;
+                HighterValue.y += 1;
+            }
+        }
+        else
+        {
+            HighterValue.x -= LowerValue.x / Math.Pow(10,3*Math.Abs(HighterValue.y - LowerValue.y));
+            if (HighterValue.x < 1 && HighterValue.y > 0)
+            {
+                HighterValue.x *= 1000;
+                HighterValue.y -= 1;
+            }
+        }
+        Coins = HighterValue;
+        return;
+    }
+    
+    public bool VerifyCanPurchase(double2 price)
+    {
+        bool canPurchase = false;
+        switch (Coins.y.CompareTo(price.y))
+        {
+            case 1: // Coins.y > price.y
+                canPurchase = true;
+                break;
+            case -1: // Coins.y < price.y
+                canPurchase = false;
+                break;
+            case 0: // Coins.y == price.y
+                if (Coins.x >= price.x)
+                {
+                    canPurchase = true;
+                }
+                else
+                {
+                    canPurchase = false;
+                }
+                break;
+        }
+        return canPurchase;
+    }
+    
+    public void Rebirth()
+    {
+        if (!VerifyCanPurchase(gachaAndRebirth.price))
+        {
+            print("not enough money");
+            return;
+        }
+        Coins = new double2(0, 0);
+        _numberOfRebirth++;
+        gachaAndRebirth.CalculateNewPriceRebirth(this);
+        gestionModifyWorkerAssignation.DestroyAssignation();
+        if (_PickaxeUpgrade)
+        {
+            _PickaxeUpgrade.Reset();
+            _upgradeClick.Clear();
+        }
+
+        if (_gestionSpawnUpgrade)
+        {
+            _gestionSpawnUpgrade.ClearSpawnedItems();
+        }
+        CalculateNewMoney();
+
+        foreach (AnimatedSprite sprite in _spawnedWorkerMap.Values)
+        {
+            Destroy(sprite.gameObject);
+        }
+        _spawnedWorkerMap.Clear();
+    }
+
+    public void GetGestionSpawn(GestionSpawnUpgrade gestionSpawnUpgrade)
+    {
+        _gestionSpawnUpgrade = gestionSpawnUpgrade;
+    }
+  
 
 }

@@ -29,12 +29,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1643113094942416673}
   m_Father: {fileID: 3911447076770960641}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 280.1, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -250, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9167056990654015502
@@ -171,7 +172,6 @@ RectTransform:
   m_Children:
   - {fileID: 5853077389894625462}
   - {fileID: 1516196798623791438}
-  - {fileID: 1643113094942416673}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -260,11 +260,15 @@ MonoBehaviour:
   iconImage: {fileID: 5920025263325304367}
   upgradeButton: {fileID: 7476297586039958528}
   gameManagerInstance: {fileID: 0}
-  currentItemData:
+  currentItemDataNew:
     UpgradeName: None
-    basePriceUpgrade: 1
+    basePriceUpgrade:
+      x: 1
+      y: 1
     nbrAmelioMaxUpgrade: 1
-    baseDamageUpgrade: 1
+    baseDamageUpgrade:
+      x: 0
+      y: 0
     iconUpgrade: {fileID: 0}
     automaticWorkerPrefab: {fileID: 0}
     automaticWorkerSpawnPosition: {x: 0, y: 0}
@@ -297,16 +301,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1752732884642216350}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3911447076770960641}
+  m_Father: {fileID: 1516196798623791438}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 85, y: 0}
+  m_AnchoredPosition: {x: -95.100006, y: 0}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8260434062603866240
@@ -369,7 +373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5857732947890553836, guid: 6d1ef125eabdaf54894b22ccd27aa6b8, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5857732947890553836, guid: 6d1ef125eabdaf54894b22ccd27aa6b8, type: 3}
       propertyPath: m_AnchorMax.y
@@ -377,7 +381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5857732947890553836, guid: 6d1ef125eabdaf54894b22ccd27aa6b8, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5857732947890553836, guid: 6d1ef125eabdaf54894b22ccd27aa6b8, type: 3}
       propertyPath: m_AnchorMin.y
@@ -433,7 +437,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5857732947890553836, guid: 6d1ef125eabdaf54894b22ccd27aa6b8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -252
+      value: 252
       objectReference: {fileID: 0}
     - target: {fileID: 5857732947890553836, guid: 6d1ef125eabdaf54894b22ccd27aa6b8, type: 3}
       propertyPath: m_AnchoredPosition.y

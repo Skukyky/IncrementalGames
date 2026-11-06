@@ -63,4 +63,13 @@ public class GestionModifyWorkerAssignation : MonoBehaviour
             }
         }
     }
+
+    public void DestroyAssignation()
+    {
+        foreach (AssignNewWorker assignNewWorker in spawnedItems)
+        {
+            Destroy(assignNewWorker.gameObject);
+        }
+        spawnedItems.Clear();
+    }
 }

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4b1bafad62bf1c841b47c16a049d0697
+guid: c3dbbc513cac975419808783e3164fc4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6611600679580647900
-    second: DummyAttack_0
+      213: -1115091725870561934
+    second: RemiAttack_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -128,7 +128,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DummyAttack_0
+      name: RemiAttack_0
       rect:
         serializedVersion: 2
         x: 0
@@ -143,8 +143,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cd1c22fc9cf11cb50800000000000000
-      internalID: 6611600679580647900
+      spriteID: 275028bbbf56680f0800000000000000
+      internalID: -1115091725870561934
       vertices: []
       indices: 
       edges: []
@@ -153,7 +153,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 285ad5e1382e3584ba83e30799410c73
+    spriteID: f1283aa524ae24a46b078d211241ea47
     internalID: 0
     vertices: []
     indices: 
@@ -163,7 +163,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      DummyAttack_0: 6611600679580647900
+      RemiAttack_0: -1115091725870561934
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

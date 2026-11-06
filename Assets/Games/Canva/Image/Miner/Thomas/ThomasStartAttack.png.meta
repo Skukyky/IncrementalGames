@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 792fd70e02914e34db268d5c67e74af4
+guid: 69903b744559da647aadd201246bcd05
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1668932932561406593
-    second: RemiFarmIdle_0
-  - first:
-      213: -2593720543164649129
-    second: RemiFarmIdle_1
-  - first:
-      213: 3734166965035247035
-    second: RemiFarmIdle_2
+      213: -2255811063873373259
+    second: ThomasStartAttack_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -134,12 +128,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RemiFarmIdle_1
+      name: ThomasStartAttack_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 400
+        width: 475
         height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -149,8 +143,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 751b90a78e0410cd0800000000000000
-      internalID: -2593720543164649129
+      spriteID: 5bb7e690acfb1b0e0800000000000000
+      internalID: -2255811063873373259
       vertices: []
       indices: 
       edges: []
@@ -159,7 +153,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 12c5b5c8e69489147bab0dba8224a417
+    spriteID: 3e48c4e217415e34f99a5d20f4782b7f
     internalID: 0
     vertices: []
     indices: 
@@ -169,9 +163,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      RemiFarmIdle_0: 1668932932561406593
-      RemiFarmIdle_1: -2593720543164649129
-      RemiFarmIdle_2: 3734166965035247035
+      ThomasStartAttack_0: -2255811063873373259
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

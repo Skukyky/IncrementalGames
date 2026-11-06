@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine.UI;
 
 public class UpgradeItemUI : MonoBehaviour
@@ -13,9 +14,13 @@ public class UpgradeItemUI : MonoBehaviour
     [SerializeField] private ItemData currentItemDataNew;
     [SerializeField] private bool hasInitializedManual = false;
     [SerializeField] private GestionSpawnUpgrade gestionSpawnUpgradeInstance;
+    private AnimationCurve priceCurve;
+    private AnimationCurve powerCurve;
     private new ItemData currentItemData;
-    private double currentPrice;
-    private int Level = 1;
+    private double2 currentPrice;
+    private double2 basePower;
+    private int Level = 0;
+    private int nbrRebirth;
     private bool localHasTriggeredGlobalSpawn = false;
     
     private void Start()
@@ -31,33 +36,40 @@ public class UpgradeItemUI : MonoBehaviour
         currentItemData = itemData != null ? itemData.Clone() : null;
         gameManagerInstance = gameManager;
         gestionSpawnUpgradeInstance = parentRef;
-        print("Initialized " + currentItemData.baseDamageUpgrade);
+        nbrRebirth = gameManager._numberOfRebirth;
+        priceCurve = gameManager.priceCurve;
         
         if (itemNameText != null)
             itemNameText.text = currentItemData.UpgradeName;
 
         if (priceText != null)
-            priceText.text = gameManagerInstance != null ? gameManagerInstance.goldConvert.ConvertMoneyLogic(currentItemData.basePriceUpgrade) : currentItemData.basePriceUpgrade.ToString();
+            priceText.text = gameManagerInstance.goldConvert.MoneyConvert(currentItemData.basePriceUpgrade);
 
         if (iconImage != null && currentItemData.iconUpgrade != null)
             iconImage.sprite = currentItemData.iconUpgrade;
         
         if (upgradeButton != null)
             upgradeButton.onClick.AddListener(OnUpgradeButtonClicked);
-
+        powerCurve = gameManager.powerCurve;
+        basePower = currentItemData.baseDamageUpgrade;
+        currentItemData.baseDamageUpgrade = ChangePower();
+        if (hasInitializedManual)
+        {
+            gameManagerInstance.ApplyUpgradePickAxe(currentItemData.UpgradeName, currentItemData.baseDamageUpgrade,this);
+        }
         CalculateNewPrice();
     }
 
     private void OnUpgradeButtonClicked()
     {
-        if (Level < currentItemData.nbrAmelioMaxUpgrade && gameManagerInstance.coins >= currentPrice)
+        if (Level < currentItemData.nbrAmelioMaxUpgrade && gameManagerInstance.VerifyCanPurchase(currentPrice))
         {
             Level++;
-            if (Level == 2)
+            if (Level == 1)
             {
                 gestionSpawnUpgradeInstance.NewSpawn();
             }
-            gameManagerInstance.coins -= currentPrice;
+            gameManagerInstance.CalculNewMoney(currentPrice, false);
             gameManagerInstance.CalculateNewMoney();
             CalculateNewPrice();
             if (!localHasTriggeredGlobalSpawn && currentItemData.automaticWorkerPrefab != null &&  !hasInitializedManual)
@@ -67,11 +79,11 @@ public class UpgradeItemUI : MonoBehaviour
             }
             else if (hasInitializedManual)
             {
-                gameManagerInstance.ApplyUpgradePickAxe(currentItemData.UpgradeName, ChangePower());
+                gameManagerInstance.ApplyUpgradePickAxe(currentItemData.UpgradeName, ChangePower(),this);
+                
             }
-                     
-            currentItemData.baseDamageUpgrade = (int)ChangePower();
-            print("New Power: " + currentItemData.baseDamageUpgrade);
+            
+            currentItemData.baseDamageUpgrade = ChangePower();
         }
         
     }
@@ -89,12 +101,36 @@ public class UpgradeItemUI : MonoBehaviour
             return;
         }
 
-        currentPrice = currentItemData.basePriceUpgrade * Level;
-        RefreshPriceText(gameManagerInstance != null ? gameManagerInstance.goldConvert.ConvertMoneyLogic(currentPrice) : currentPrice.ToString());
+        print("Curve: " + priceCurve.Evaluate((float)Level/100)*1000);
+        currentPrice = new double2(currentItemData.basePriceUpgrade.x * (priceCurve.Evaluate((float)Level/100)*1000 + 1), currentItemData.basePriceUpgrade.y);
+        while (currentPrice.x > 1000)
+        {
+            currentPrice.x /= 1000;
+            currentPrice.y += 1;
+        }
+        
+        RefreshPriceText(gameManagerInstance.goldConvert.MoneyConvert(currentPrice));
     }
 
-    private double ChangePower()
+    private double2 ChangePower()
     {
-        return currentItemData.baseDamageUpgrade * (Level - 1);
+        double2 newPower = basePower;
+        newPower.x *= (powerCurve.Evaluate((float)Level/100)*100 + 1) * nbrRebirth ;
+        if (newPower.x > 1000)
+        {
+            newPower.x /= 1000;
+            newPower.y += 1;
+        }
+        newPower.x = Math.Round(newPower.x, 3);
+        return newPower;
     }
+
+    public void Reset()
+    {
+        Level = 0;
+        nbrRebirth = gameManagerInstance._numberOfRebirth;
+        gameManagerInstance.ApplyUpgradePickAxe(currentItemData.UpgradeName, ChangePower(),this);
+        CalculateNewPrice();
+    }
+    
 }

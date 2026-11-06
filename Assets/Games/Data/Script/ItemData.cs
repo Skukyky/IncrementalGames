@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -5,9 +6,9 @@ using UnityEngine.Serialization;
 public class ItemData
 {
     public new string UpgradeName = "None";
-    public new int basePriceUpgrade = 1;
+    public new double2 basePriceUpgrade = 1d;
     public new int nbrAmelioMaxUpgrade = 1;
-    public new int baseDamageUpgrade = 1;
+    public new double2 baseDamageUpgrade =  new double2(0d, 0d);
     public new Sprite iconUpgrade;
     public new GameObject automaticWorkerPrefab;
     public new Vector2 automaticWorkerSpawnPosition;
