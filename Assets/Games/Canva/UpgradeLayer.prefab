@@ -1050,10 +1050,12 @@ PrefabInstance:
     - target: {fileID: 5920025263325304367, guid: 5616250e85fd93b45a107e09580c9e63, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -3044009071465434143, guid: ed4e016c8eddc57499edc5f5217b49cc, type: 3}
+      objectReference: {fileID: 5067086336447239846, guid: 0934a01919204a1449f98941c9458109, type: 3}
     - target: {fileID: 9095232617567774193, guid: 5616250e85fd93b45a107e09580c9e63, type: 3}
       propertyPath: m_text
-      value: Price
+      value: 'Price
+
+'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

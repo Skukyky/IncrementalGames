@@ -84,6 +84,7 @@ public class AnimatedSprite : MonoBehaviour
     {
         double2 crit = double2.zero;
         crit.x = itemDataLocal.baseDamageUpgrade.x * itemDataLocal.automaticWorkerCharacterData.CritDamage;
+        crit.y = itemDataLocal.baseDamageUpgrade.y;
         if (crit.x > 1000)
         {
             crit.x /= 1000;

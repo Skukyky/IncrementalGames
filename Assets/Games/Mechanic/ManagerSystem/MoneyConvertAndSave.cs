@@ -102,24 +102,31 @@ public class MoneyConvertAndSave : MonoBehaviour
             position = valueMoney.items.Count - 1;
         }
 
-        string result = FormatValue(value.x) + valueMoney.items[position];
+        string result = FormatValue(value) + valueMoney.items[position];
         return result;
     }
     
-    private static string FormatValue(double value)
+    private static string FormatValue(double2 value)
     {
-        if (value >= 100d)
+        if (value.y >= 1)
         {
-            return ((long)Math.Floor(value)).ToString();
-        }
+            if (value.x >= 100d)
+            {
+                return ((long)Math.Floor(value.x)).ToString();
+            }
 
-        if (value >= 10d)
-        {
-            double truncated = Math.Floor(value * 10d) / 10d;
-            return truncated.ToString("0.0").Replace('.', ',');
-        }
+            else if (value.x >= 10d)
+            {
+                double truncated = Math.Floor(value.x * 10d) / 10d;
+                return truncated.ToString("0.0").Replace('.', ',');
+            }
 
-        double tinyTruncated = Math.Floor(value * 100d) / 100d;
-        return tinyTruncated.ToString("0.00").Replace('.', ',').TrimEnd('0').TrimEnd(',');
+            else
+            {
+                double truncated = Math.Floor(value.x * 100d) / 100d;
+                return truncated.ToString("0.00").Replace('.', ',');
+            }
+        }
+        return ((long)Math.Ceiling(value.x)).ToString();
     }
 }

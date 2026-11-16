@@ -9,7 +9,13 @@ public class GestionSpawnUpgrade : MonoBehaviour
     [SerializeField] private GameManager gameManager;
 
     private int IndexAllReadySpawnedItems = 0;
-    private List<GameObject> spawnedItems = new List<GameObject>();
+    private List<GameObject> _spawnedItems = new List<GameObject>();
+
+    public List<GameObject> SpawnedItems
+    {
+        get => _spawnedItems;
+        set => _spawnedItems = value;
+    }
 
     private void Start()
     {
@@ -17,12 +23,12 @@ public class GestionSpawnUpgrade : MonoBehaviour
         {
             gameManager.GetGestionSpawn(this);
         }
-        
+        NewSpawn();
     }
 
     public void SpawnUpgrades()
     {
-        if (spawnedItems != null)
+        if (SpawnedItems != null)
         {
             ClearSpawnedItems();
         }
@@ -30,7 +36,7 @@ public class GestionSpawnUpgrade : MonoBehaviour
         foreach (ItemData item in itemDatabase.items)
         {
             GameObject newUpgrade = Instantiate(prefabUpgrade, scrollContent);
-            spawnedItems.Add(newUpgrade);
+            SpawnedItems.Add(newUpgrade);
             
             // Récupérer le composant UI pour le configurer avec les données de l'item
             UpgradeItemUI upgradeUI = newUpgrade.GetComponent<UpgradeItemUI>();
@@ -41,14 +47,20 @@ public class GestionSpawnUpgrade : MonoBehaviour
         }
     }
 
+    public void SetItemData(ItemDatabase item)
+    {
+        itemDatabase = item;
+    }
+
     public void ClearSpawnedItems()
     {
-        foreach (GameObject item in spawnedItems)
+        foreach (GameObject item in SpawnedItems)
         {
             Destroy(item);
         }
-        spawnedItems.Clear();
+        SpawnedItems.Clear();
         IndexAllReadySpawnedItems = 0;
+        NewSpawn();
     }
 
     public void NewSpawn()
@@ -58,7 +70,7 @@ public class GestionSpawnUpgrade : MonoBehaviour
             
             ItemData item = itemDatabase.items[IndexAllReadySpawnedItems];
             GameObject newUpgrade = Instantiate(prefabUpgrade, scrollContent);
-            spawnedItems.Add(newUpgrade);
+            SpawnedItems.Add(newUpgrade);
             UpgradeItemUI upgradeUI = newUpgrade.GetComponent<UpgradeItemUI>();
             if (upgradeUI != null)
             {

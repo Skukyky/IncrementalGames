@@ -8,6 +8,7 @@ public class ShowMoney : MonoBehaviour
     [SerializeField] private RectTransform rectTransform;
     [SerializeField] private Image image;
     [SerializeField] private TMP_Text text;
+    [SerializeField] private Image canvas;
 
     public void Initialize(float riseDistance = 50f, float duration = 1f, string moneyText = "+1", Vector2 startPosition = default)
     {
@@ -58,6 +59,7 @@ public class ShowMoney : MonoBehaviour
                 Color color = image.color;
                 color.a = Mathf.Lerp(1f, 0f, t);
                 image.color = color;
+                canvas.color = color;
             }
 
             elapsed += Time.deltaTime;
@@ -85,6 +87,7 @@ public class ShowMoney : MonoBehaviour
             Color color = image.color;
             color.a = 0f;
             image.color = color;
+            canvas.color = color;
         }
 
         Destroy(gameObject);

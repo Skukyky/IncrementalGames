@@ -129,9 +129,23 @@ MonoBehaviour:
   uiCanvasTransform: {fileID: 1976397589435696816}
   gestionModifyWorkerAssignation: {fileID: 0}
   prefabShowMoney: {fileID: 0}
+  gachaAndRebirth: {fileID: 0}
+  priceCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  powerCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   Coins:
     x: 0
     y: 0
+  _numberOfRebirth: 1
   itemDatabase: {fileID: 11400000, guid: 91170a99fd1124e4995629f8746e1cf0, type: 2}
 --- !u!1 &1146927995948214048
 GameObject:
@@ -303,7 +317,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4829179863022872288, guid: 10f766645c629be42ad53d9a22c6ad6e, type: 3}
+  m_Sprite: {fileID: 187080074579394287, guid: db4939a95c14bd94fafdaf351725bdcf, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

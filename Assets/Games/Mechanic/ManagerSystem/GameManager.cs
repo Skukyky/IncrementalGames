@@ -16,13 +16,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float slimeIntensity = 0.35f; // how strong the stretch/squash is
     [SerializeField] public MoneyConvertAndSave goldConvert;
     [SerializeField] private Transform uiCanvasTransform;
-    [SerializeField] private GestionModifyWorkerAssignation gestionModifyWorkerAssignation;
+    [SerializeField] public GestionModifyWorkerAssignation gestionModifyWorkerAssignation;
     [SerializeField] private GameObject prefabShowMoney;
     [SerializeField] private GachaAndRebirth gachaAndRebirth;
     [SerializeField] public AnimationCurve priceCurve;
     [SerializeField] public AnimationCurve powerCurve;
     public Transform UiCanvasTransform => uiCanvasTransform;
     private GestionSpawnUpgrade _gestionSpawnUpgrade;
+    private UpgradeSaveData[] _pendingUpgradeSave;
+    public GestionSpawnUpgrade GetGestionSpawnUpgrade() => _gestionSpawnUpgrade;
     
     public double2 Coins =  new double2(0, 0);
     private Coroutine _slimeCoroutine;
@@ -34,6 +36,7 @@ public class GameManager : MonoBehaviour
     private double2 _damageAutomatic = new double2(1d, 0);
     private bool _firstLaunchDelegate = true;
     private UpgradeItemUI _PickaxeUpgrade;
+    private ItemSaveData _itemSaveData;
 
     public int _numberOfRebirth = 1;
     
@@ -43,9 +46,21 @@ public class GameManager : MonoBehaviour
     private Dictionary<string, AnimatedSprite> _spawnedWorkerMap = new Dictionary<string, AnimatedSprite>();
     public IReadOnlyDictionary<string, AnimatedSprite> SpawnedWorkerMap => _spawnedWorkerMap;
 
+    public static GameManager Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
     private void Start()
     {
         _originalScale = slimeButton.localScale;
+        SaveSystem.LoadDataSystem();
+        CalculateNewMoney();
     }
 
     public void OnClickButton()
@@ -298,6 +313,11 @@ public class GameManager : MonoBehaviour
         }
         CalculateNewMoney();
 
+        if (gestionModifyWorkerAssignation)
+        {
+            gestionModifyWorkerAssignation.RelaunchAssignation();
+        }
+
         foreach (AnimatedSprite sprite in _spawnedWorkerMap.Values)
         {
             Destroy(sprite.gameObject);
@@ -305,10 +325,72 @@ public class GameManager : MonoBehaviour
         _spawnedWorkerMap.Clear();
     }
 
+    public void RestoreUpgradeState(UpgradeSaveData[] upgrades)
+    {
+        if (upgrades == null)
+            return;
+
+        if (_gestionSpawnUpgrade == null)
+        {
+            _pendingUpgradeSave = upgrades;
+            return;
+        }
+
+        Dictionary<string, UpgradeSaveData> savedByName = new Dictionary<string, UpgradeSaveData>();
+        foreach (var savedUpgrade in upgrades)
+        {
+            if (savedUpgrade == null || string.IsNullOrEmpty(savedUpgrade.upgradeName))
+                continue;
+            savedByName[savedUpgrade.upgradeName] = savedUpgrade;
+        }
+
+        for (int i = 0; i < upgrades.Length-1; i++)
+        {
+            _gestionSpawnUpgrade.NewSpawn();
+        }
+
+        foreach (var item in _gestionSpawnUpgrade.SpawnedItems)
+        {
+            if (item == null)
+                continue;
+
+            UpgradeItemUI ui = item.GetComponent<UpgradeItemUI>();
+            if (ui == null)
+                continue;
+
+            if (savedByName.TryGetValue(ui.GetUpgradeName(), out var saved))
+            {
+                ui.RestoreState(saved);
+            }
+        }
+    }
+
     public void GetGestionSpawn(GestionSpawnUpgrade gestionSpawnUpgrade)
     {
         _gestionSpawnUpgrade = gestionSpawnUpgrade;
+        if (_pendingUpgradeSave != null)
+        {
+            RestoreUpgradeState(_pendingUpgradeSave);
+            _pendingUpgradeSave = null;
+        }
+        
     }
-  
 
+    public void GetSaveReferences(ItemSaveData item)
+    {
+        _itemSaveData = item;
+    }
+
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus)
+        {
+            SaveSystem.SaveDataSystem();
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveSystem.SaveDataSystem();
+    }
 }

@@ -12,7 +12,6 @@ public class UpgradeItemUI : MonoBehaviour
     [SerializeField] private Button upgradeButton;
     [SerializeField] private GameManager gameManagerInstance;
     [SerializeField] private ItemData currentItemDataNew;
-    [SerializeField] private bool hasInitializedManual = false;
     [SerializeField] private GestionSpawnUpgrade gestionSpawnUpgradeInstance;
     private AnimationCurve priceCurve;
     private AnimationCurve powerCurve;
@@ -25,10 +24,50 @@ public class UpgradeItemUI : MonoBehaviour
     
     private void Start()
     {
+        /*
         if (currentItemDataNew != null && gameManagerInstance != null && hasInitializedManual)
         {
             Initialize(currentItemDataNew, gameManagerInstance, gestionSpawnUpgradeInstance);
+        }*/
+    }
+
+    public string GetUpgradeName() => currentItemData != null ? currentItemData.UpgradeName : string.Empty;
+
+    public UpgradeSaveData GetSaveData()
+    {
+        return new UpgradeSaveData
+        {
+            upgradeName = currentItemData != null ? currentItemData.UpgradeName : string.Empty,
+            level = Level,
+            automaticWorkerSpawned = localHasTriggeredGlobalSpawn,
+            //workerIndex = currentItemData
+        };
+    }
+
+    public void RestoreState(UpgradeSaveData save)
+    {
+        print("Restored");
+        if (save == null || currentItemData == null)
+            return;
+
+        Level = save.level;
+        localHasTriggeredGlobalSpawn = save.automaticWorkerSpawned;
+        if (Level > 0)
+        {
+            if (currentItemData.automaticWorkerPrefab != null || currentItemData.automaticWorkerCharacterData != null)
+            {
+                if (localHasTriggeredGlobalSpawn)
+                {
+                    gameManagerInstance.SpawnAutomaticWorker(currentItemData);
+                }
+            }
+            else
+            {
+                currentItemData.baseDamageUpgrade = ChangePower();
+                gameManagerInstance.ApplyUpgradePickAxe(currentItemData.UpgradeName, currentItemData.baseDamageUpgrade, this);
+            }
         }
+        CalculateNewPrice();
     }
     
     public void Initialize(ItemData itemData, GameManager gameManager,GestionSpawnUpgrade parentRef)
@@ -50,12 +89,15 @@ public class UpgradeItemUI : MonoBehaviour
         
         if (upgradeButton != null)
             upgradeButton.onClick.AddListener(OnUpgradeButtonClicked);
+        
         powerCurve = gameManager.powerCurve;
         basePower = currentItemData.baseDamageUpgrade;
         currentItemData.baseDamageUpgrade = ChangePower();
-        if (hasInitializedManual)
+        
+        if (!currentItemData.automaticWorkerPrefab && !currentItemData.automaticWorkerCharacterData)
         {
             gameManagerInstance.ApplyUpgradePickAxe(currentItemData.UpgradeName, currentItemData.baseDamageUpgrade,this);
+            print("Applying upgrade for " + currentItemData.UpgradeName + " with power: " + currentItemData.baseDamageUpgrade.x + " and rebirth: " + nbrRebirth);
         }
         CalculateNewPrice();
     }
@@ -72,12 +114,12 @@ public class UpgradeItemUI : MonoBehaviour
             gameManagerInstance.CalculNewMoney(currentPrice, false);
             gameManagerInstance.CalculateNewMoney();
             CalculateNewPrice();
-            if (!localHasTriggeredGlobalSpawn && currentItemData.automaticWorkerPrefab != null &&  !hasInitializedManual)
+            if (!localHasTriggeredGlobalSpawn && currentItemData.automaticWorkerPrefab != null)
             {
                 localHasTriggeredGlobalSpawn = true;
                 gameManagerInstance.SpawnAutomaticWorker(currentItemData);
             }
-            else if (hasInitializedManual)
+            else if (!currentItemData.automaticWorkerPrefab && !currentItemData.automaticWorkerCharacterData)
             {
                 gameManagerInstance.ApplyUpgradePickAxe(currentItemData.UpgradeName, ChangePower(),this);
                 

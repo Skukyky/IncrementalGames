@@ -8,24 +8,28 @@ public class GestionModifyWorkerAssignation : MonoBehaviour
     [SerializeField] private Transform scrollContent;
     [SerializeField] private GameObject prefabAssign;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private CharacterData defaultCharacterData;
 
     private List<CharacterData> _availableCharacters = new List<CharacterData>();
     private List<AssignNewWorker> spawnedItems = new List<AssignNewWorker>();
+    private bool isLoaded = false;
 
     private void Start()
     {
-        // Create a copy of the original miner list so we don't modify the asset referenced in the inspector
-        if (_dataMinerList != null && _dataMinerList.MinerList != null)
+        if (!isLoaded)
         {
-            _availableCharacters = new List<CharacterData>();
-            foreach (CharacterData character in _dataMinerList.MinerList)
+            if (_dataMinerList != null && _dataMinerList.MinerList != null)
             {
-                if (character != null)
-                    _availableCharacters.Add(character.Clone());
+                _availableCharacters = new List<CharacterData>();
+                foreach (CharacterData character in _dataMinerList.MinerList)
+                {
+                    if (character != null)
+                        _availableCharacters.Add(character.Clone());
+                }
             }
+            else
+                _availableCharacters = new List<CharacterData>();
         }
-        else
-            _availableCharacters = new List<CharacterData>();
     }
 
     public void SpawnNewAssignation(AnimatedSprite animatedSprite)
@@ -71,5 +75,55 @@ public class GestionModifyWorkerAssignation : MonoBehaviour
             Destroy(assignNewWorker.gameObject);
         }
         spawnedItems.Clear();
+    }
+    
+    public void RelaunchAssignation()
+    {
+        if (_dataMinerList != null && _dataMinerList.MinerList != null)
+        {
+            _availableCharacters.Clear();
+            foreach (CharacterData character in _dataMinerList.MinerList)
+            {
+                if (character != null)
+                    _availableCharacters.Add(character.Clone());
+            }
+        }
+        else
+            _availableCharacters = new List<CharacterData>();
+    }
+    
+    public void LoadWorkerInListSave(List<int> loadedMinerList)
+    {
+        isLoaded = true;
+        if (loadedMinerList != null)
+        {
+            _availableCharacters.Clear();
+            foreach (int character in loadedMinerList)
+            {
+                if (character >= 0)
+                {
+                    _availableCharacters.Add(_dataMinerList.MinerList[character].Clone());
+                    print(_dataMinerList.MinerList[character].Clone().CharacterName + " loaded.");
+                }
+                else
+                {
+                    _availableCharacters.Add(defaultCharacterData.Clone());
+                }
+            }
+        }
+        else
+        {
+            _availableCharacters = new List<CharacterData>();
+            print("No miner data to load.");
+        }
+    }
+    public List<CharacterData> GetDataMinerList()
+    {
+        return _dataMinerList.MinerList;
+    }
+
+    public List<CharacterData> GetAvailableCharacters()
+    {
+        return _availableCharacters;
     }
 }

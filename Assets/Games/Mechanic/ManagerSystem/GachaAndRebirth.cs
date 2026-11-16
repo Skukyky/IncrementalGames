@@ -8,16 +8,18 @@ public class GachaAndRebirth : MonoBehaviour
     [SerializeField] private TMP_Text priceText;
     [SerializeField] private double2 basePrice;
     [SerializeField] private MoneyConvertAndSave moneyConvert;
+    private GameManager gameManager;
     public double2 price;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         price = basePrice;
         priceText.text = moneyConvert.MoneyConvert(price);
+        gameManager = GameManager.Instance; 
+        CalculateNewPriceRebirth(gameManager);
     }
 
     // Update is called once per frame
-
     public void CalculateNewPriceRebirth(GameManager gameManager)
     {
         if (gameManager)
