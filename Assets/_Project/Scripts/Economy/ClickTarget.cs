@@ -23,7 +23,11 @@ public class ClickTarget : MonoBehaviour
 
     public void Hit(BigNumber amount, Vector2 screenPosition, bool playSquash)
     {
-        amount = amount.Round(3);
+        // Gain arrondi à la précision affichée (entier sous 1000) : le "+X" du popup est exactement ce qui est ajouté.
+        BigNumber gain = amount.FloorToDisplay();
+        if (gain.IsZero && amount > BigNumber.Zero)
+            gain = BigNumber.One;
+        amount = gain;
         currency.Add(amount);
 
         if (popups != null)

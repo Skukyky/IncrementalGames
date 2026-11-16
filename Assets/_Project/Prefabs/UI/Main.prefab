@@ -1118,6 +1118,10 @@ PrefabInstance:
       propertyPath: assignments
       value: 
       objectReference: {fileID: 6951708940301977209}
+    - target: {fileID: 8394382866445827028, guid: 85f592c54a345e44f977b22d73d40d8e, type: 3}
+      propertyPath: basePrice.mantissa
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 8418476096330882566, guid: 85f592c54a345e44f977b22d73d40d8e, type: 3}
       propertyPath: m_Size
       value: 0.6999999

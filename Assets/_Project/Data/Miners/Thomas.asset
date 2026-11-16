@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Thomas
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   CharacterName: Thomas
-  FireRate: 1.5
-  CritRate: 25
-  CritDamage: 1.5
+  FireRate: 1
+  CritRate: 30
+  CritDamage: 3
   icon: {fileID: 6832784522543880101, guid: 48511d85034bd1e43bfbd6d3a6ad49d0, type: 3}
   sprite1: {fileID: -2255811063873373259, guid: 69903b744559da647aadd201246bcd05, type: 3}
   sprite2: {fileID: 1204848395684356710, guid: 669c14f2d6850a349890a5bca236a1c7, type: 3}

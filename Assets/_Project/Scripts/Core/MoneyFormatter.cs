@@ -21,30 +21,20 @@ public static class MoneyFormatter
             return "0";
         }
 
-        int position = Math.Clamp(value.Exponent, 0, _suffixes.Count - 1);
-        return FormatValue(value) + _suffixes[position];
+        // Toujours arrondi vers le bas : on n'affiche jamais plus que ce qu'on possède.
+        // Les prix sont déjà sur cette grille (CeilToDisplay), ils s'affichent donc tels quels.
+        BigNumber shown = value.FloorToDisplay();
+        int position = Math.Clamp(shown.Exponent, 0, _suffixes.Count - 1);
+        return FormatValue(shown) + _suffixes[position];
     }
 
     private static string FormatValue(BigNumber value)
     {
         double mantissa = value.Mantissa;
-        if (value.Exponent >= 1)
-        {
-            if (mantissa >= 100d)
-            {
-                return ((long)Math.Floor(mantissa)).ToString();
-            }
+        if (value.Exponent == 0 || mantissa >= 100d)
+            return Math.Round(mantissa).ToString("0");
 
-            if (mantissa >= 10d)
-            {
-                double truncated = Math.Floor(mantissa * 10d) / 10d;
-                return truncated.ToString("0.0").Replace('.', ',');
-            }
-
-            double smallTruncated = Math.Floor(mantissa * 100d) / 100d;
-            return smallTruncated.ToString("0.00").Replace('.', ',');
-        }
-
-        return ((long)Math.Ceiling(mantissa)).ToString();
+        string text = mantissa >= 10d ? mantissa.ToString("0.0") : mantissa.ToString("0.00");
+        return text.Replace('.', ',');
     }
 }

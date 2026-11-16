@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -122,17 +123,21 @@ public class UpgradeItemUI : MonoBehaviour
         bool isMaxLevel = _level >= _item.nbrAmelioMaxUpgrade;
         if (!isMaxLevel)
         {
-            float curve = _owner.PriceCurve.Evaluate(_level / 100f);
-            _currentPrice = _item.basePriceUpgrade * (curve * 1000d + 1d);
+            // Prix = prix de base × croissance^niveau, arrondi au-dessus à la précision affichée.
+            _currentPrice = (_item.basePriceUpgrade * Math.Pow(_item.priceGrowth, _level)).CeilToDisplay();
         }
 
         if (priceText != null)
             priceText.text = isMaxLevel ? "Max Level" : MoneyFormatter.Format(_currentPrice);
     }
 
+    /// <summary>
+    /// Puissance = puissance de base × niveau × nombre de rebirths, arrondie à la précision affichée.
+    /// La pioche compte un niveau de plus : le clic rapporte déjà avant le premier achat.
+    /// </summary>
     private BigNumber ComputePower()
     {
-        float curve = _owner.PowerCurve.Evaluate(_level / 100f);
-        return (_basePower * ((curve * 100d + 1d) * _rebirthCount)).Round(3);
+        int levels = IsWorkerUpgrade ? _level : _level + 1;
+        return (_basePower * ((double)levels * _rebirthCount)).FloorToDisplay();
     }
 }

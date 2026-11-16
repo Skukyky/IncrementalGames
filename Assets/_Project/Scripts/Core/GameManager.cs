@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
         if (seconds < 1d)
             return;
 
-        BigNumber earned = workers.EstimateIncomePerSecond() * (seconds * offlineEfficiency);
+        BigNumber earned = (workers.EstimateIncomePerSecond() * (seconds * offlineEfficiency)).FloorToDisplay();
         if (earned.IsZero)
             return;
 

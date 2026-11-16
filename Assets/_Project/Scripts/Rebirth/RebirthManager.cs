@@ -10,6 +10,8 @@ public class RebirthManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text priceText;
     [SerializeField] private BigNumber basePrice;
+    [Tooltip("Multiplicateur du prix à chaque rebirth. Doit dépasser le bonus (×nombre de rebirths) pour que chaque cycle dure un peu plus.")]
+    [SerializeField] private double priceGrowth = 3d;
     [SerializeField] private CurrencyManager currency;
     [SerializeField] private UpgradeManager upgrades;
     [SerializeField] private WorkerManager workers;
@@ -46,8 +48,8 @@ public class RebirthManager : MonoBehaviour
 
     private void RefreshPrice()
     {
-        // Le prix repart toujours du prix de base (l'ancien calcul cumulait l'exposant à chaque rebirth).
-        Price = new BigNumber(Math.Pow(RebirthCount * basePrice.Mantissa, 1.2), basePrice.Exponent);
+        // Prix = prix de base × croissance^(rebirths effectués), arrondi au-dessus à la précision affichée.
+        Price = (basePrice * Math.Pow(priceGrowth, RebirthCount - 1)).CeilToDisplay();
         if (priceText != null)
             priceText.text = MoneyFormatter.Format(Price);
     }

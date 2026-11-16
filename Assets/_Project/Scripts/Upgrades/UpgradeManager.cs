@@ -10,8 +10,6 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private ItemDatabase itemDatabase;
     [SerializeField] private Transform scrollContent;
     [SerializeField] private GameObject prefabUpgrade;
-    [SerializeField] private AnimationCurve priceCurve = AnimationCurve.Linear(0, 0, 1, 1);
-    [SerializeField] private AnimationCurve powerCurve = AnimationCurve.Linear(0, 0, 1, 1);
     [SerializeField] private CurrencyManager currency;
     [SerializeField] private WorkerManager workers;
     [SerializeField] private RebirthManager rebirth;
@@ -22,8 +20,6 @@ public class UpgradeManager : MonoBehaviour
     /// <summary>Argent gagné par clic du joueur (somme des améliorations de type pioche).</summary>
     public BigNumber ClickPower { get; private set; } = BigNumber.One;
 
-    public AnimationCurve PriceCurve => priceCurve;
-    public AnimationCurve PowerCurve => powerCurve;
     public int RebirthCount => rebirth != null ? rebirth.RebirthCount : 1;
 
     /// <summary>Appelé par le GameManager au démarrage (ordre maîtrisé, pas de dépendance à Start).</summary>

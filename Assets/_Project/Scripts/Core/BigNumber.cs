@@ -67,6 +67,41 @@ public struct BigNumber : IComparable<BigNumber>, IEquatable<BigNumber>
 
     public BigNumber Round(int digits) => new BigNumber(Math.Round(mantissa, digits), exponent);
 
+    // --- Précision d'affichage -------------------------------------------------------------
+    // L'écran montre un entier sous 1000, puis 3 chiffres significatifs (1,23K / 12,3K / 123K).
+    // Les prix sont arrondis au-dessus sur cette grille et l'argent affiché en dessous :
+    // ce qui est affiché est donc toujours exactement ce qui compte pour acheter.
+
+    // Tolérance pour absorber les erreurs d'arrondi des doubles (ex. 122,99999999 au lieu de 123).
+    private const double Epsilon = 1e-7;
+
+    /// <summary>Arrondi vers le bas à la précision affichée (argent, gains).</summary>
+    public BigNumber FloorToDisplay() => Quantize(rounded: Math.Floor, bias: Epsilon);
+
+    /// <summary>Arrondi vers le haut à la précision affichée (prix).</summary>
+    public BigNumber CeilToDisplay() => Quantize(rounded: Math.Ceiling, bias: -Epsilon);
+
+    private BigNumber Quantize(Func<double, double> rounded, double bias)
+    {
+        if (IsZero) return this;
+
+        // Nombre de décimales visibles : 0 sous 1000 ou à partir de 100 ; 1 dès 10 ; 2 en dessous.
+        double abs = Math.Abs(mantissa);
+        double scale = exponent == 0 || abs >= 100d ? 1d : abs >= 10d ? 10d : 100d;
+        return new BigNumber(rounded(mantissa * scale + bias) / scale, exponent);
+    }
+
+    /// <summary>
+    /// Recale sur des unités entières (supprime le bruit des doubles après des additions).
+    /// Au-delà de 1000^4 les unités dépassent la précision d'un double et ne comptent plus à l'écran.
+    /// </summary>
+    public BigNumber SnapToUnits()
+    {
+        if (IsZero || exponent > 4) return this;
+        double scale = Math.Pow(Base, exponent);
+        return new BigNumber(Math.Round(mantissa * scale) / scale, exponent);
+    }
+
     public static implicit operator BigNumber(double value) => new BigNumber(value);
 
     public static BigNumber operator +(BigNumber a, BigNumber b)

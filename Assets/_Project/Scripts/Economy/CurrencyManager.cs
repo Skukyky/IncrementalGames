@@ -22,18 +22,22 @@ public class CurrencyManager : MonoBehaviour
 
     public void Add(BigNumber amount)
     {
-        _coins += amount;
+        _coins = (_coins + amount).SnapToUnits();
         CoinsChanged?.Invoke(_coins);
     }
 
-    public bool CanAfford(BigNumber price) => _coins >= price;
+    /// <summary>
+    /// Compare ce que voit le joueur : l'argent affiché (arrondi vers le bas) au prix affiché.
+    /// Si l'écran montre assez d'argent, l'achat passe toujours, et inversement.
+    /// </summary>
+    public bool CanAfford(BigNumber price) => _coins.FloorToDisplay() >= price.CeilToDisplay();
 
     public bool TrySpend(BigNumber price)
     {
         if (!CanAfford(price))
             return false;
 
-        _coins -= price;
+        _coins = (_coins - price.CeilToDisplay()).SnapToUnits();
         if (_coins < BigNumber.Zero)
             _coins = BigNumber.Zero;
         CoinsChanged?.Invoke(_coins);
@@ -42,7 +46,7 @@ public class CurrencyManager : MonoBehaviour
 
     public void SetCoins(BigNumber value)
     {
-        _coins = value;
+        _coins = value.SnapToUnits();
         CoinsChanged?.Invoke(_coins);
     }
 }
