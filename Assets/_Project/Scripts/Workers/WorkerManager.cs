@@ -51,12 +51,20 @@ public class WorkerManager : MonoBehaviour
         return total;
     }
 
+    /// <summary>
+    /// Supprime tous les mineurs (rebirth). Les personnages obtenus au gacha qui travaillaient
+    /// dessus retournent dans la réserve : on ne les perd jamais.
+    /// </summary>
     public void ClearAll()
     {
         foreach (AutomaticWorker worker in _workers.Values)
         {
-            if (worker != null)
-                Destroy(worker.gameObject);
+            if (worker == null)
+                continue;
+
+            if (assignments != null && worker.ItemData != null)
+                assignments.ReturnToPool(worker.ItemData.automaticWorkerCharacterData);
+            Destroy(worker.gameObject);
         }
         _workers.Clear();
     }

@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private WorkerAssignmentManager assignments;
     [SerializeField] private RebirthManager rebirth;
     [SerializeField] private MoneyPopupSpawner popups;
+    [SerializeField] private GachaManager gacha;
 
     [Header("Sauvegarde")]
     [SerializeField] private float autoSaveInterval = 30f;
@@ -61,6 +62,8 @@ public class GameManager : MonoBehaviour
         upgrades.Initialize(); // après SetRebirthCount : la puissance dépend du nombre de rebirths
         upgrades.Restore(save.upgrades);
         currency.SetCoins(save.money);
+        if (gacha != null)
+            gacha.SetGems(save.gems);
         ApplyOfflineEarnings(save.lastSaveUtcTicks);
     }
 
@@ -94,6 +97,7 @@ public class GameManager : MonoBehaviour
             _rebirthCount = rebirth.RebirthCount,
             upgrades = upgrades.GetSaveData(),
             _minerListIndex = assignments.GetSaveData(),
+            gems = gacha != null ? gacha.Gems : 0,
             lastSaveUtcTicks = DateTime.UtcNow.Ticks,
         });
     }

@@ -19,6 +19,7 @@ public class ItemSaveData
     public int _rebirthCount;
     public UpgradeSaveData[] upgrades;
     public List<int> _minerListIndex;
+    public int gems;
 
     // Date de la sauvegarde (UTC, en ticks) pour calculer le gain hors-ligne. 0 = ancienne sauvegarde.
     public long lastSaveUtcTicks;

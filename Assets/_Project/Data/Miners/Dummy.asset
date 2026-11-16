@@ -16,6 +16,7 @@ MonoBehaviour:
   FireRate: 1
   CritRate: 0
   CritDamage: 1.5
+  dropWeight: 0
   icon: {fileID: -7668596672532877539, guid: 74c5473438694774abca8a9bce628976, type: 3}
   sprite1: {fileID: 3743347946993326939, guid: 7a746675c3495c24dac01af252e6ae99, type: 3}
   sprite2: {fileID: 6611600679580647900, guid: 4b1bafad62bf1c841b47c16a049d0697, type: 3}

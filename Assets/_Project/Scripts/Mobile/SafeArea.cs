@@ -8,6 +8,9 @@ using UnityEngine;
 [RequireComponent(typeof(RectTransform))]
 public class SafeArea : MonoBehaviour
 {
+    [Tooltip("Enfants qui restent en plein écran, affichés par-dessus le reste (ex. fenêtre d'invocation).")]
+    [SerializeField] private RectTransform[] keepFullScreen = new RectTransform[0];
+
     private RectTransform _safeRect;
     private Rect _lastSafeArea;
     private Vector2Int _lastScreenSize;
@@ -27,9 +30,15 @@ public class SafeArea : MonoBehaviour
         for (int i = transform.childCount - 1; i >= 0; i--)
         {
             Transform child = transform.GetChild(i);
-            if (child == _safeRect) continue;
+            if (child == _safeRect || System.Array.IndexOf(keepFullScreen, child) >= 0) continue;
             child.SetParent(_safeRect, false);
             child.SetAsFirstSibling();
+        }
+
+        foreach (RectTransform overlay in keepFullScreen)
+        {
+            if (overlay != null)
+                overlay.SetAsLastSibling();
         }
 
         Apply();
