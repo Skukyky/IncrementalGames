@@ -59,6 +59,10 @@ public class UpgradeItemUI : MonoBehaviour
             upgradeName = UpgradeName,
             level = _level,
             automaticWorkerSpawned = _workerSpawned,
+            // _item est partagé avec le mineur : il contient le personnage actuellement assigné.
+            assignedCharacter = _workerSpawned && _item.automaticWorkerCharacterData != null
+                ? _item.automaticWorkerCharacterData.CharacterName
+                : null,
         };
     }
 
@@ -76,7 +80,7 @@ public class UpgradeItemUI : MonoBehaviour
             if (IsWorkerUpgrade)
             {
                 if (_workerSpawned)
-                    _owner.SpawnWorker(_item);
+                    _owner.SpawnWorker(_item, save.assignedCharacter);
             }
             else
             {

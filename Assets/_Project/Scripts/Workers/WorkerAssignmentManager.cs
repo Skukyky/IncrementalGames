@@ -70,6 +70,22 @@ public class WorkerAssignmentManager : MonoBehaviour
         return indices;
     }
 
+    /// <summary>Copie du personnage portant ce nom (base des mineurs ou personnage par défaut), sinon null.</summary>
+    public CharacterData FindCharacter(string characterName)
+    {
+        if (minerDatabase != null && minerDatabase.MinerList != null)
+        {
+            CharacterData match = minerDatabase.MinerList.Find(c => c != null && c.CharacterName == characterName);
+            if (match != null)
+                return match.Clone();
+        }
+
+        if (defaultCharacterData != null && defaultCharacterData.CharacterName == characterName)
+            return defaultCharacterData.Clone();
+
+        return null;
+    }
+
     public void Restore(List<int> savedIndices)
     {
         if (savedIndices == null)

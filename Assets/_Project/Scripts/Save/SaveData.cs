@@ -7,6 +7,9 @@ public class UpgradeSaveData
     public string upgradeName;
     public int level;
     public bool automaticWorkerSpawned;
+
+    // Personnage assigné au mineur de cette amélioration (CharacterName). Vide = celui par défaut.
+    public string assignedCharacter;
 }
 
 [Serializable]

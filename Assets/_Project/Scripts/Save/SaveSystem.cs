@@ -23,6 +23,7 @@ public static class SaveSystem
         try
         {
             File.WriteAllText(tempPath, JsonUtility.ToJson(data));
+            Debug.Log("SaveSystem: Fichier de sauvegarde créé : " + tempPath);
             if (File.Exists(path))
             {
                 File.Replace(tempPath, path, null);

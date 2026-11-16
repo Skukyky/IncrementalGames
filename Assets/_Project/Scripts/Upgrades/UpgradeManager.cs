@@ -55,10 +55,10 @@ public class UpgradeManager : MonoBehaviour
         ClickPower = total;
     }
 
-    public void SpawnWorker(ItemData item)
+    public void SpawnWorker(ItemData item, string assignedCharacter = null)
     {
         if (workers != null)
-            workers.Spawn(item);
+            workers.Spawn(item, assignedCharacter);
     }
 
     public UpgradeSaveData[] GetSaveData()

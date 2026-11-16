@@ -11,10 +11,18 @@ public class WorkerManager : MonoBehaviour
 
     private readonly Dictionary<string, AutomaticWorker> _workers = new Dictionary<string, AutomaticWorker>();
 
-    public void Spawn(ItemData item)
+    /// <param name="assignedCharacter">Nom du personnage sauvegardé pour ce mineur (null = celui par défaut de l'amélioration).</param>
+    public void Spawn(ItemData item, string assignedCharacter = null)
     {
         if (item == null || container == null || item.automaticWorkerPrefab == null || _workers.ContainsKey(item.UpgradeName))
             return;
+
+        if (!string.IsNullOrEmpty(assignedCharacter) && assignments != null)
+        {
+            CharacterData saved = assignments.FindCharacter(assignedCharacter);
+            if (saved != null)
+                item.automaticWorkerCharacterData = saved;
+        }
 
         GameObject instance = Instantiate(item.automaticWorkerPrefab, container);
         if (instance.TryGetComponent(out RectTransform rect))
