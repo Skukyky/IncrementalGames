@@ -11,25 +11,15 @@ public class UpgradeItemUI : MonoBehaviour
     [SerializeField] private Image iconImage;
     [SerializeField] private Button upgradeButton;
     [SerializeField] private GameManager gameManagerInstance;
-    [SerializeField] private ItemData currentItemDataNew;
     [SerializeField] private GestionSpawnUpgrade gestionSpawnUpgradeInstance;
     private AnimationCurve priceCurve;
     private AnimationCurve powerCurve;
-    private new ItemData currentItemData;
+    private ItemData currentItemData;
     private double2 currentPrice;
     private double2 basePower;
     private int Level = 0;
     private int nbrRebirth;
     private bool localHasTriggeredGlobalSpawn = false;
-    
-    private void Start()
-    {
-        /*
-        if (currentItemDataNew != null && gameManagerInstance != null && hasInitializedManual)
-        {
-            Initialize(currentItemDataNew, gameManagerInstance, gestionSpawnUpgradeInstance);
-        }*/
-    }
 
     public string GetUpgradeName() => currentItemData != null ? currentItemData.UpgradeName : string.Empty;
 
@@ -40,13 +30,11 @@ public class UpgradeItemUI : MonoBehaviour
             upgradeName = currentItemData != null ? currentItemData.UpgradeName : string.Empty,
             level = Level,
             automaticWorkerSpawned = localHasTriggeredGlobalSpawn,
-            //workerIndex = currentItemData
         };
     }
 
     public void RestoreState(UpgradeSaveData save)
     {
-        print("Restored");
         if (save == null || currentItemData == null)
             return;
 
@@ -97,7 +85,6 @@ public class UpgradeItemUI : MonoBehaviour
         if (!currentItemData.automaticWorkerPrefab && !currentItemData.automaticWorkerCharacterData)
         {
             gameManagerInstance.ApplyUpgradePickAxe(currentItemData.UpgradeName, currentItemData.baseDamageUpgrade,this);
-            print("Applying upgrade for " + currentItemData.UpgradeName + " with power: " + currentItemData.baseDamageUpgrade.x + " and rebirth: " + nbrRebirth);
         }
         CalculateNewPrice();
     }
@@ -143,7 +130,6 @@ public class UpgradeItemUI : MonoBehaviour
             return;
         }
 
-        print("Curve: " + priceCurve.Evaluate((float)Level/100)*1000);
         currentPrice = new double2(currentItemData.basePriceUpgrade.x * (priceCurve.Evaluate((float)Level/100)*1000 + 1), currentItemData.basePriceUpgrade.y);
         while (currentPrice.x > 1000)
         {

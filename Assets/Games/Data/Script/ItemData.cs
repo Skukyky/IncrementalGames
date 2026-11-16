@@ -1,19 +1,18 @@
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [System.Serializable]
 public class ItemData
 {
-    public new string UpgradeName = "None";
-    public new double2 basePriceUpgrade = 1d;
-    public new int nbrAmelioMaxUpgrade = 1;
-    public new double2 baseDamageUpgrade =  new double2(0d, 0d);
-    public new Sprite iconUpgrade;
-    public new GameObject automaticWorkerPrefab;
-    public new Vector2 automaticWorkerSpawnPosition;
-    public new bool automaticWorkerFlipX;
-    public new CharacterData automaticWorkerCharacterData;
+    public string UpgradeName = "None";
+    public double2 basePriceUpgrade = 1d;
+    public int nbrAmelioMaxUpgrade = 1;
+    public double2 baseDamageUpgrade =  new double2(0d, 0d);
+    public Sprite iconUpgrade;
+    public GameObject automaticWorkerPrefab;
+    public Vector2 automaticWorkerSpawnPosition;
+    public bool automaticWorkerFlipX;
+    public CharacterData automaticWorkerCharacterData;
 
     public ItemData Clone()
     {

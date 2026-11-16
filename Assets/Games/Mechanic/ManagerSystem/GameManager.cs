@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -31,16 +29,10 @@ public class GameManager : MonoBehaviour
     private Vector3 _originalScale;
     private string _coinsString;
     Dictionary<string, double2> _upgradeClick = new Dictionary<string, double2>();
-    Dictionary<string, double2> _upgradeAutomatic = new Dictionary<string, double2>();
     private double2 _damagePickaxe = new double2(1d, 0);
-    private double2 _damageAutomatic = new double2(1d, 0);
-    private bool _firstLaunchDelegate = true;
     private UpgradeItemUI _PickaxeUpgrade;
-    private ItemSaveData _itemSaveData;
 
     public int _numberOfRebirth = 1;
-    
-    [SerializeField] private ItemDatabase itemDatabase;
 
     // Map to keep spawned automatic worker instances keyed by item name
     private Dictionary<string, AnimatedSprite> _spawnedWorkerMap = new Dictionary<string, AnimatedSprite>();
@@ -65,7 +57,10 @@ public class GameManager : MonoBehaviour
 
     public void OnClickButton()
     {
-        Vector2 mouseScreenPos = Mouse.current.position.ReadValue();
+        // Pointer.current couvre souris ET écran tactile (Mouse.current est null sur mobile)
+        Vector2 mouseScreenPos = Pointer.current != null
+            ? Pointer.current.position.ReadValue()
+            : (Vector2)slimeButton.position;
         PlaySlimeEffect();
         AddCoins(_damagePickaxe, mouseScreenPos);
     }
@@ -374,11 +369,6 @@ public class GameManager : MonoBehaviour
             _pendingUpgradeSave = null;
         }
         
-    }
-
-    public void GetSaveReferences(ItemSaveData item)
-    {
-        _itemSaveData = item;
     }
 
     private void OnApplicationPause(bool pauseStatus)

@@ -26,32 +26,6 @@ public class GestionSpawnUpgrade : MonoBehaviour
         NewSpawn();
     }
 
-    public void SpawnUpgrades()
-    {
-        if (SpawnedItems != null)
-        {
-            ClearSpawnedItems();
-        }
-        
-        foreach (ItemData item in itemDatabase.items)
-        {
-            GameObject newUpgrade = Instantiate(prefabUpgrade, scrollContent);
-            SpawnedItems.Add(newUpgrade);
-            
-            // Récupérer le composant UI pour le configurer avec les données de l'item
-            UpgradeItemUI upgradeUI = newUpgrade.GetComponent<UpgradeItemUI>();
-            if (upgradeUI != null)
-            {
-                upgradeUI.Initialize(item,gameManager, this);
-            }
-        }
-    }
-
-    public void SetItemData(ItemDatabase item)
-    {
-        itemDatabase = item;
-    }
-
     public void ClearSpawnedItems()
     {
         foreach (GameObject item in SpawnedItems)

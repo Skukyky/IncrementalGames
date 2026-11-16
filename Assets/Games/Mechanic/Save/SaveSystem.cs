@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public static class SaveSystem
@@ -51,8 +49,6 @@ public static class SaveSystem
             {
                 minerListIndex.Add(-1);
             }
-            
-            Debug.Log("Character " + minerListIndex[minerListIndex.Count - 1] + " added to save data.");
         }
 
         ItemSaveData data = new ItemSaveData
@@ -91,19 +87,3 @@ public static class SaveSystem
         }
     }
 }
-
-/*
-[Serializable]
-public class SaveData
-{
-    public static ItemSaveData DataSaved()
-    {
-        ItemSaveData data = new ItemSaveData
-        {
-            _money = GameManager.Instance.Coins,
-            _rebirthCount = GameManager.Instance._numberOfRebirth
-        };
-        return data;
-    }
-}
-*/

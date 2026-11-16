@@ -103,7 +103,6 @@ public class GestionModifyWorkerAssignation : MonoBehaviour
                 if (character >= 0)
                 {
                     _availableCharacters.Add(_dataMinerList.MinerList[character].Clone());
-                    print(_dataMinerList.MinerList[character].Clone().CharacterName + " loaded.");
                 }
                 else
                 {
@@ -114,7 +113,6 @@ public class GestionModifyWorkerAssignation : MonoBehaviour
         else
         {
             _availableCharacters = new List<CharacterData>();
-            print("No miner data to load.");
         }
     }
     public List<CharacterData> GetDataMinerList()

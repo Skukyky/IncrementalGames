@@ -6,10 +6,8 @@ public class AssignNewWorker : MonoBehaviour
 {
     [SerializeField] private TMP_Dropdown workerDropdown;
     [SerializeField] private TMP_Text AssignName;
-    [SerializeField] private CharacterData defaultCharacterData;
     
     private List<CharacterData> dataMinerList = new List<CharacterData>();
-    private GameManager gameManager;
     private AnimatedSprite _selectedWorker;
     private GestionModifyWorkerAssignation _workerAssignation;
 

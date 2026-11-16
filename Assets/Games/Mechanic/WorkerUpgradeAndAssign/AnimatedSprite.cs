@@ -14,7 +14,7 @@ public class AnimatedSprite : MonoBehaviour
     private double frameTime = 0.5f;
     private double timer;
     private bool frame;
-    public new ItemData itemDataLocal;
+    public ItemData itemDataLocal;
     
     public void Initialize(ItemData itemData, GameManager gameManager)
     {

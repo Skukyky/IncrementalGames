@@ -1,17 +1,16 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [System.Serializable]
 [CreateAssetMenu(fileName = "CharacterDatabase", menuName = "Data/Character Database")]
 public class CharacterData : ScriptableObject
 {
-    public new string CharacterName = "None";
-    public new double FireRate = 1;
-    public new double CritRate = 0;
-    public new double CritDamage = 1.5;
-    public new Sprite icon;
-    public new Sprite sprite1;
-    public new Sprite sprite2;
+    public string CharacterName = "None";
+    public double FireRate = 1;
+    public double CritRate = 0;
+    public double CritDamage = 1.5;
+    public Sprite icon;
+    public Sprite sprite1;
+    public Sprite sprite2;
 
     public CharacterData Clone()
     {
